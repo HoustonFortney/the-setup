@@ -2,4 +2,4 @@
 - name: Configure system
   hosts: all
   roles:
-    - example
+    - install_utils

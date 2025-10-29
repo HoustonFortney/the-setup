@@ -853,6 +853,7 @@ dependencies = [
     { name = "ansible-lint" },
     { name = "molecule" },
     { name = "molecule-plugins", extra = ["vagrant"] },
+    { name = "pyyaml" },
     { name = "ruff" },
     { name = "testinfra" },
 ]
@@ -863,6 +864,7 @@ requires-dist = [
     { name = "ansible-lint", specifier = ">=25.9.2" },
     { name = "molecule", specifier = "==25.1.0" },
     { name = "molecule-plugins", extras = ["vagrant"], specifier = ">=25.8.12" },
+    { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "ruff", specifier = ">=0.14.2" },
     { name = "testinfra", specifier = ">=6.0.0" },
 ]
