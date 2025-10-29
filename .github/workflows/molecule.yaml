@@ -1,0 +1,43 @@
+name: Test playbook
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  molecule:
+    runs-on: ubuntu-24.04
+    env:
+      VAGRANT_DEFAULT_PROVIDER: virtualbox
+
+    steps:
+      - name: Install Virtualbox
+        run: |
+          sudo apt update
+          sudo apt install -y virtualbox
+
+      - name: Install Vagrant
+        run: |
+          wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+          sudo apt update
+          sudo apt install vagrant
+
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Initialize uv environment
+        run: uv sync
+
+      - name: Run Molecule tests
+        run: uv run molecule test
+

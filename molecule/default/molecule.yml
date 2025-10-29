@@ -1,0 +1,38 @@
+---
+
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - prepare
+    - converge
+    - verify
+    - idempotence
+    - verify
+    - destroy
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+platforms:
+  - name: ubuntu
+    box: ubuntu/jammy64
+    memory: 2048
+    cpus: 2
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: "static"
+        ip: "192.168.56.10"
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      stdout_callback: debug
+    env:
+      ANSIBLE_FORCE_COLOR: "true"
+verifier:
+  name: testinfra
+  directory: ../../roles
+  options:
+    verbose: true

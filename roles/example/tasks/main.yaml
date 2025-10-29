@@ -1,0 +1,6 @@
+---
+- name: Create a test file
+  ansible.builtin.copy:
+    dest: /tmp/hello.txt
+    content: "hello world\n"
+    mode: u+r
