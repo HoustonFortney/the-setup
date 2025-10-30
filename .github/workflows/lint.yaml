@@ -1,0 +1,35 @@
+name: Lint playbook
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  molecule:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Initialize uv environment
+        run: uv sync
+
+      - name: Lint playbook
+        run: uv run ansible-lint
+
+      - name: Check python formatting
+        run: uv run ruff format
+
+      - name: Lint python
+        run: uv run ruff check
+
