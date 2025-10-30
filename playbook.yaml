@@ -3,3 +3,4 @@
   hosts: all
   roles:
     - install_utils
+    - configure_bash
