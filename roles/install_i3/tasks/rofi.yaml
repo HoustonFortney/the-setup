@@ -1,0 +1,13 @@
+---
+- name: Create rofi config dir
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/rofi"
+    state: directory
+    mode: "755"
+
+- name: Copy rofi configuration
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/dracula/rofi/master/theme/config1.rasi
+    checksum: "sha256:52f26dd7c44bb919a7a604d71bea26df5e52bd2188f9804e103fc002239bc99a"
+    dest: "{{ ansible_env.HOME }}/.config/rofi/config.rasi"
+    mode: "644"

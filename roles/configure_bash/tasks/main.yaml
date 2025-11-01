@@ -8,7 +8,7 @@
 - name: Ensure .bashrc sources .bashrc_local
   ansible.builtin.lineinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
-    line: 'source ~/.bashrc_local'
+    line: "source ~/.bashrc_local"
     state: present
 
 - name: Copy bash aliases file

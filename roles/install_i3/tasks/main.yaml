@@ -1,0 +1,30 @@
+---
+- name: Install i3 and related packages
+  become: true
+  ansible.builtin.apt:
+    name: "{{ install_i3_packages }}"
+    state: present
+    update_cache: true
+
+- name: Create i3 config dir
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/i3"
+    state: directory
+    mode: "755"
+
+- name: Copy i3 configuration
+  ansible.builtin.copy:
+    src: "i3_config"
+    dest: "{{ ansible_env.HOME }}/.config/i3/config"
+    mode: "644"
+  notify: Restart i3
+
+- name: Copy scripts
+  become: true
+  ansible.builtin.copy:
+    src: "scripts/"
+    dest: "/usr/local/bin/"
+    mode: "755"
+
+- name: Configure rofi
+  ansible.builtin.import_tasks: rofi.yaml

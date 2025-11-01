@@ -1,0 +1,5 @@
+---
+- name: Restart i3
+  ansible.builtin.command: "i3-msg restart"
+  when: ansible_facts['env']['DISPLAY'] is defined
+  changed_when: true
