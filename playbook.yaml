@@ -4,3 +4,4 @@
   roles:
     - install_utils
     - configure_bash
+    - install_i3

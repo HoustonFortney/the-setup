@@ -1,0 +1,8 @@
+---
+install_i3_packages:
+  - i3
+  - dex
+  - rofi
+  - maim
+  - xclip
+  - xss-lock
