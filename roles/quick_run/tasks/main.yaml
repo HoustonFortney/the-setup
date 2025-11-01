@@ -1,0 +1,7 @@
+---
+- name: Copy scripts
+  become: true
+  ansible.builtin.copy:
+    src: "scripts/"
+    dest: "/usr/local/bin/"
+    mode: "755"

@@ -6,3 +6,4 @@
     - configure_bash
     - install_i3
     - configure_git
+    - quick_run

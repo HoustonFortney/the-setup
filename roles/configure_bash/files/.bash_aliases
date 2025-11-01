@@ -11,3 +11,5 @@ alias lh='ls -haltr'
 alias mkdirs='mkdir -pv'
 
 alias svi='sudo vim'
+
+alias qr='quick-run'
