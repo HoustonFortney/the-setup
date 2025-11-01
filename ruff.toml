@@ -1,0 +1,11 @@
+line-length = 120
+
+[lint]
+select = ["E", "F", "W", "N", "PL", "I", "D", "ASYNC", "DTZ", "TID", "ERA", "RUF", "COM", "T20"]
+ignore = [
+    "D1",  # Not enforcing docstrings everywhere
+    "D203", # Using D211: No blank lines allowed before class docstring
+    "D213", # Using D212: Multi-line docstring summary should start at the first line
+    "COM812", # Conflicts with formatter
+]
+pylint.max-args = 10

@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  molecule:
+  lint:
     runs-on: ubuntu-24.04
 
     steps:
@@ -28,8 +28,7 @@ jobs:
         run: uv run ansible-lint
 
       - name: Check python formatting
-        run: uv run ruff format
+        run: uv run ruff format --check
 
       - name: Lint python
         run: uv run ruff check
-
