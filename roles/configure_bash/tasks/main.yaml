@@ -3,7 +3,7 @@
   ansible.builtin.copy:
     src: ".bashrc_local"
     dest: "{{ ansible_env.HOME }}/.bashrc_local"
-    mode: +rw
+    mode: "644"
 
 - name: Ensure .bashrc sources .bashrc_local
   ansible.builtin.lineinfile:
@@ -15,4 +15,4 @@
   ansible.builtin.copy:
     src: ".bash_aliases"
     dest: "{{ ansible_env.HOME }}/.bash_aliases"
-    mode: +rw
+    mode: "644"
