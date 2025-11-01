@@ -24,3 +24,6 @@
     src: "scripts/"
     dest: "/usr/local/bin/"
     mode: "755"
+
+- name: Configure rofi
+  ansible.builtin.import_tasks: rofi.yaml
