@@ -1,0 +1,24 @@
+---
+- name: Set editor to vim
+  community.general.git_config:
+    scope: global
+    name: core.editor
+    value: vim
+
+- name: Set push behavior
+  community.general.git_config:
+    scope: global
+    name: push.default
+    value: current
+
+- name: Set git aliases
+  community.general.git_config:
+    scope: global
+    name: "alias.{{ item.name }}"
+    value: "{{ item.value }}"
+  loop:
+    - { name: a, value: "add -u" }
+    - { name: ll, value: "log --oneline --graph --decorate --all" }
+    - { name: amend, value: "commit --amend --no-edit" }
+    - { name: fixup, value: "commit --fixup" }
+    - { name: pushf, value: "push --force-with-lease" }
