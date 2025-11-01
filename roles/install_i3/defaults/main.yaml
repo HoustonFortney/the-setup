@@ -1,6 +1,7 @@
 ---
 install_i3_packages:
   - i3
+  - i3lock
   - dex
   - rofi
   - maim
