@@ -1,0 +1,7 @@
+---
+install_utils_packages:
+  - tree
+  - jq
+  - traceroute
+  - tmux
+  - speedtest-cli
