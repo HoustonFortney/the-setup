@@ -1,3 +1,5 @@
+from time import sleep
+
 import pytest
 
 
@@ -33,6 +35,7 @@ def run_integration_test_sequence(host):
     start_command = host.run("nohup quick-run touch test.txt > /dev/null 2>&1 & echo $!")
     assert start_command.rc == 0, "Starting quick-run session should succeed"
     pid = start_command.stdout.strip()
+    sleep(0.5)  # Allow pipe to be created
 
     # Now run quick-run-go to execute the command
     go_command = host.run("quick-run-go")
