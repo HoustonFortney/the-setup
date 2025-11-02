@@ -1,0 +1,11 @@
+---
+- name: Download uv install script
+  ansible.builtin.get_url:
+    url: "https://astral.sh/uv/install.sh"
+    dest: /tmp/uv_install.sh
+    mode: "755"
+
+- name: Install uv
+  ansible.builtin.command: /tmp/uv_install.sh
+  args:
+    creates: "{{ ansible_env.HOME }}/.local/bin/uv"

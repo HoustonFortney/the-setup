@@ -1,0 +1,3 @@
+---
+- name: Install uv
+  ansible.builtin.import_tasks: uv.yaml
