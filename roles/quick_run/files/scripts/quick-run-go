@@ -1,0 +1,12 @@
+#!/bin/bash
+
+PIPE="/tmp/quick-run.pipe"
+
+# Make sure the pipe exists
+if [ ! -p "$PIPE" ]; then
+    echo "quick-run is not active, start with 'quick-run <command>'" >&2
+    exit 1
+fi
+
+# Signal the quick-run process to execute the command
+echo "" > "$PIPE"

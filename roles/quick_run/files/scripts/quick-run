@@ -1,0 +1,37 @@
+#!/bin/bash
+
+PIPE="/tmp/quick-run.pipe"
+
+show_help() {
+    echo "Usage: quick-run <command>"
+    echo "Starts a persistent process that waits for a signal to run the specified command."
+    echo "To signal the process to run the command, run quick-run-go."
+}
+
+cleanup() {
+    rm -f "$PIPE"
+}
+
+if [[ "$1" == "--help" || "$1" == "-h" ]]; then
+    show_help
+    exit 0
+fi
+if [ "$#" -lt 1 ]; then
+    echo "Error: No command provided. Run quick-run --help for usage." >&2
+    exit 1
+fi
+
+# Ensure cleanup on exit
+trap cleanup EXIT
+
+cleanup
+mkfifo "$PIPE"
+
+while true; do
+    echo "Ready to run: $*"
+
+    # Wait for a signal to run the command
+    read _ < "$PIPE"
+
+    "$@"
+done
