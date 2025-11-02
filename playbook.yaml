@@ -8,3 +8,4 @@
     - configure_git
     - quick_run
     - install_python_tools
+    - install_nodejs
