@@ -1,0 +1,18 @@
+---
+- name: Download AWS CLI v2 bundle
+  ansible.builtin.get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.zip
+    dest: /tmp/awscliv2.zip
+    mode: "644"
+
+- name: Unzip AWS CLI bundle
+  ansible.builtin.unarchive:
+    src: /tmp/awscliv2.zip
+    dest: /tmp
+    remote_src: true
+
+- name: Install AWS CLI v2
+  become: true
+  ansible.builtin.command: /tmp/aws/install
+  args:
+    creates: /usr/local/bin/aws

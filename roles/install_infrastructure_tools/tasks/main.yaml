@@ -1,0 +1,9 @@
+---
+- name: Install terraform
+  ansible.builtin.import_tasks: terraform.yaml
+- name: Install aws cli
+  ansible.builtin.import_tasks: aws_cli.yaml
+- name: Install kubectl
+  ansible.builtin.import_tasks: kubectl.yaml
+- name: Install helm
+  ansible.builtin.import_tasks: helm.yaml
