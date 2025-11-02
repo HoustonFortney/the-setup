@@ -1,5 +1,6 @@
 ---
 install_utils_packages:
+  - unzip
   - tree
   - jq
   - traceroute
