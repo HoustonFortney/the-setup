@@ -6,6 +6,7 @@
     - configure_bash
     - install_i3
     - configure_git
+    - install_docker
     - quick_run
     - install_python_tools
     - install_nodejs
