@@ -16,7 +16,7 @@ driver:
     name: virtualbox
 platforms:
   - name: ubuntu
-    box: ubuntu/jammy64
+    box: cloud-image/ubuntu-24.04
     memory: 2048
     cpus: 2
     interfaces:
