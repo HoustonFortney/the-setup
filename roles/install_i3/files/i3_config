@@ -12,7 +12,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- lock --nofork
 exec --no-startup-id nm-applet
 
-exec --no-startup-id ~/.config/i3/set-screens.sh
+include ~/.config/i3/outputs.conf
 
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
