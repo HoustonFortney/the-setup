@@ -19,6 +19,16 @@
     mode: "644"
   notify: Restart i3
 
+- name: Create machine-specific display config template
+  ansible.builtin.copy:
+    content: |
+      # Place machine specific workspace/display configuration here
+      # example:
+      # workspace 1 output HDMI-1
+    dest: "{{ ansible_env.HOME }}/.config/i3/outputs.conf"
+    mode: "644"
+    force: false
+
 - name: Copy scripts
   become: true
   ansible.builtin.copy:
