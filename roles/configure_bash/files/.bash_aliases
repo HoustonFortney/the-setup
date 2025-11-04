@@ -15,4 +15,4 @@ alias svi='sudo vim'
 alias qr='quick-run'
 
 alias tf='terraform'
-alias kc='kubectl'
+alias k='kubectl'
