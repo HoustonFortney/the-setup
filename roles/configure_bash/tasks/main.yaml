@@ -4,6 +4,7 @@
     src: ".bashrc_local"
     dest: "{{ ansible_env.HOME }}/.bashrc_local"
     mode: "644"
+    backup: true
 
 - name: Ensure .bashrc sources .bashrc_local
   ansible.builtin.lineinfile:
@@ -16,3 +17,4 @@
     src: ".bash_aliases"
     dest: "{{ ansible_env.HOME }}/.bash_aliases"
     mode: "644"
+    backup: true
