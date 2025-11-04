@@ -4,6 +4,7 @@
   roles:
     - install_utils
     - configure_bash
+    - configure_vim
     - install_i3
     - configure_git
     - install_docker

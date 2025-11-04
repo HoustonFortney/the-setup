@@ -1,0 +1,31 @@
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
+set relativenumber
+set smartindent
+set smartcase
+set incsearch
+set showmatch
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'github/copilot.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'dracula/vim', { 'as': 'dracula' }
+
+call plug#end()
+
+colorscheme dracula
+hi Normal guibg=#0d0c14 ctermbg=235
+let g:airline_theme='dracula'
+
+:nnoremap <silent> <F2> :w<CR>:call job_start('quick-run-go')<CR>
+:inoremap <silent> <F2> <ESC>:w<CR>:call job_start('quick-run-go')<CR>
+
