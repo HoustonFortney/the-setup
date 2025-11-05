@@ -23,9 +23,8 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
 
 colorscheme dracula
-hi Normal guibg=#0d0c14 ctermbg=235
+hi Normal ctermbg=NONE
 let g:airline_theme='dracula'
 
 :nnoremap <silent> <F2> :w<CR>:call job_start('quick-run-go')<CR>
 :inoremap <silent> <F2> <ESC>:w<CR>:call job_start('quick-run-go')<CR>
-
