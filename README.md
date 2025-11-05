@@ -23,9 +23,10 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/HoustonFortney/the-setup.git
+   git clone <your-fork-url>
    cd the-setup
    ```
+   (Replace `<your-fork-url>` with the actual repository URL)
 
 2. Run the playbook to configure your system:
    ```bash
@@ -126,19 +127,20 @@ Each role can include custom configuration files:
 
 ### Running Specific Roles
 
-To run only specific roles instead of the entire playbook:
-
-```bash
-uv run ansible-playbook playbook.yaml --tags "configure_bash,install_docker"
-```
-
-Note: You'll need to add tags to the playbook.yaml first.
+To run only specific roles instead of the entire playbook, you can use Ansible's `--limit` option or modify the playbook. For example, to run only specific roles, you could create a custom playbook or comment out roles you don't want to run in `playbook.yaml`.
 
 ### Targeting Remote Hosts
 
 By default, the playbook runs on localhost. To target remote hosts:
 
-1. Edit `hosts.yaml` to add your remote hosts
+1. Edit `hosts.yaml` to add your remote hosts. Example:
+   ```yaml
+   all:
+     hosts:
+       remote-server:
+         ansible_host: 192.168.1.100
+         ansible_user: your-username
+   ```
 2. Ensure SSH access is configured
 3. Run: `uv run ansible-playbook playbook.yaml -i hosts.yaml`
 
