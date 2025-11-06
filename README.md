@@ -33,7 +33,7 @@ As this repository is specific to my personal configuration, you likely want to 
 This playbook installs/configures:
 
 - Vim
-- Basic operating tools: [i3](https://i3wm.org/), [rofi](https://github.com/davatorium/rofi), [Alacrity](https://github.com/alacritty/alacritty)
+- Basic operating tools: [i3](https://i3wm.org/), [rofi](https://github.com/davatorium/rofi), [Alacritty](https://github.com/alacritty/alacritty)
 - Bash shell customization
 - Development tools: [Docker](https://www.docker.com/), [Node.js](https://nodejs.org), [uv](https://github.com/astral-sh/uv)
 - Infrastructure tools: [Terraform](https://www.terraform.io/), [Kubernetes kubectl](https://kubernetes.io/docs/tasks/tools/), [Helm](https://helm.sh/), [aws-cli](https://aws.amazon.com/cli/)
