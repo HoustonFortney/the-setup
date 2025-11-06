@@ -24,6 +24,13 @@ def test_i3_config_file_exists(host):
     assert config_file.is_file, f"I3 config file {config_file_path} should exist"
 
 
+def test_i3blocks_config_file_exists(host):
+    user = host.user()
+    config_file_path = f"{user.home}/.config/i3blocks/config"
+    config_file = host.file(config_file_path)
+    assert config_file.is_file, f"I3blocks config file {config_file_path} should exist"
+
+
 def find_scripts():
     scripts_dir = Path("../../roles/install_i3/files/scripts")
     return [p.name for p in scripts_dir.iterdir() if p.is_file()]

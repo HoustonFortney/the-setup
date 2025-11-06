@@ -29,6 +29,10 @@ provisioner:
   config_options:
     defaults:
       stdout_callback: debug
+      callbacks_enabled:
+        - timer
+        - profile_tasks
+        - profile_roles
     env:
       ANSIBLE_FORCE_COLOR: "true"
 verifier:

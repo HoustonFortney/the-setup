@@ -6,16 +6,26 @@
     state: present
     update_cache: true
 
-- name: Create i3 config dir
+- name: Create i3 config dirs
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/i3"
+    path: "{{ item }}"
     state: directory
     mode: "755"
+  loop:
+    - "{{ ansible_env.HOME }}/.config/i3"
+    - "{{ ansible_env.HOME }}/.config/i3blocks"
 
-- name: Copy i3 configuration
+- name: Copy i3 config files
   ansible.builtin.copy:
     src: "i3_config"
     dest: "{{ ansible_env.HOME }}/.config/i3/config"
+    mode: "644"
+  notify: Restart i3
+
+- name: Copy i3 blocks configuration
+  ansible.builtin.copy:
+    src: "i3blocks_config"
+    dest: "{{ ansible_env.HOME }}/.config/i3blocks/config"
     mode: "644"
   notify: Restart i3
 

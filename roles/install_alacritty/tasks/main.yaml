@@ -4,6 +4,7 @@
   ansible.builtin.apt_repository:
     repo: ppa:aslatter/ppa
     state: present
+    mode: "644"
 
 - name: Install Alacritty
   become: true

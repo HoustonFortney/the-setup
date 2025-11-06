@@ -1,0 +1,4 @@
+[time]
+command=date '+%m-%d-%Y %H:%M'
+interval=5
+
