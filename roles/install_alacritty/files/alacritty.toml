@@ -1,0 +1,5 @@
+[general]
+import = ["~/.config/alacritty/themes/dracula/alacritty-master/dracula.toml"]
+
+[colors.primary]
+background = "#0b0b12"

@@ -1,0 +1,40 @@
+---
+- name: Add apt repository for Alacritty
+  become: true
+  ansible.builtin.apt_repository:
+    repo: ppa:aslatter/ppa
+    state: present
+
+- name: Install Alacritty
+  become: true
+  ansible.builtin.apt:
+    name: alacritty
+    state: present
+    update_cache: true
+
+- name: Create Alacritty config dirs
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "755"
+  loop:
+    - "{{ ansible_env.HOME }}/.config/alacritty"
+    - "{{ ansible_env.HOME }}/.config/alacritty/themes/dracula"
+
+- name: Copy Alacritty configuration
+  ansible.builtin.copy:
+    src: "alacritty.toml"
+    dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.toml"
+    mode: "644"
+
+- name: Download Dracula theme for Alacritty
+  ansible.builtin.get_url:
+    url: "https://github.com/dracula/alacritty/archive/master.zip"
+    dest: "/tmp/dracula-alacritty.zip"
+    mode: "644"
+
+- name: Unzip Dracula theme
+  ansible.builtin.unarchive:
+    src: "/tmp/dracula-alacritty.zip"
+    dest: "{{ ansible_env.HOME }}/.config/alacritty/themes/dracula"
+    remote_src: true
