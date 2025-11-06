@@ -11,6 +11,7 @@
     repo: "deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release | lower }} main"
     state: present
     filename: hashicorp
+    mode: "644"
 
 - name: Install terraform
   become: true

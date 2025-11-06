@@ -11,6 +11,7 @@
     repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
     state: present
     filename: docker
+    mode: "644"
 
 - name: Install docker
   become: true
