@@ -66,7 +66,7 @@ uv run molecule test
 ## 🤝 Contributing
 
 Contributions are welcome!
-This repository is by design opinioned towards my personal preferences, so please fork and adapt it to your own needs.
+This repository is by design opinionated towards my personal preferences, so please fork and adapt it to your own needs.
 PRs for bugfixes, version updates, or generic improvements will be considered.
 
 ## 🔗 References
