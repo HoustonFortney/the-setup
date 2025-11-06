@@ -18,4 +18,3 @@
     /var/tmp/aws/install
   args:
     creates: /usr/local/bin/aws
-
