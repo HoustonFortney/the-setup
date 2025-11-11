@@ -4,5 +4,6 @@ install_utils_packages:
   - tree
   - jq
   - traceroute
+  - net-tools
   - tmux
   - speedtest-cli
