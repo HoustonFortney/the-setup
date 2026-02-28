@@ -2,6 +2,7 @@
 install_utils_packages:
   - curl
   - git
+  - gh
   - build-essential
   - unzip
   - tree
