@@ -28,6 +28,7 @@ opt.foldlevel = 99
 opt.fillchars:append({ eob = " " })
 opt.winborder = "rounded"
 opt.updatetime = 250
+opt.autoread = true
 
 -- =========================
 -- Filetypes
@@ -75,6 +76,22 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight yanked text",
     callback = function()
         vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+    desc = "Check for external file changes",
+    callback = function()
+        if vim.fn.mode() ~= "c" and vim.fn.getcmdwintype() == "" then
+            vim.cmd("checktime")
+        end
+    end,
+})
+
+vim.api.nvim_create_autocmd("FileChangedShell", {
+    desc = "Force-reload externally changed files; local edits recoverable via undo (u)",
+    callback = function()
+        vim.v.fcs_choice = "reload"
     end,
 })
 
