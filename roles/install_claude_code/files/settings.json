@@ -1,0 +1,9 @@
+{
+    "model": "opus",
+    "includeCoAuthoredBy": true,
+    "permissions": {
+        "allow": [],
+        "deny": [],
+        "ask": []
+    }
+}
