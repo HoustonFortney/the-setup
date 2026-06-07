@@ -13,6 +13,7 @@
     - quick_run
     - install_python_tools
     - install_nodejs
+    - install_claude_code
     - install_rust_tools
     - install_infrastructure_tools
     - install_tmux
