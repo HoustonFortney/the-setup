@@ -5,5 +5,10 @@
         "allow": [],
         "deny": [],
         "ask": []
+    },
+    "statusLine": {
+        "type": "command",
+        "command": "python3 ~/.claude/statusline.py",
+        "padding": 0
     }
 }

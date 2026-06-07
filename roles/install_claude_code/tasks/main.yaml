@@ -11,6 +11,13 @@
     state: directory
     mode: "0755"
 
+- name: Copy Claude Code status line script
+  ansible.builtin.copy:
+    src: "statusline.py"
+    dest: "{{ ansible_env.HOME }}/.claude/statusline.py"
+    mode: "0755"
+    backup: true
+
 - name: Copy Claude Code settings
   ansible.builtin.copy:
     src: "settings.json"
