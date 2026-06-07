@@ -95,6 +95,13 @@ vim.api.nvim_create_autocmd("FileChangedShell", {
     end,
 })
 
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+    desc = "Notify after an externally-changed file is reloaded",
+    callback = function()
+        vim.notify("Buffer reloaded from disk (u to recover local edits)", vim.log.levels.WARN)
+    end,
+})
+
 vim.api.nvim_create_autocmd("CursorHold", {
     desc = "Show diagnostics in a floating window on hover",
     callback = function()
