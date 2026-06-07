@@ -2,9 +2,32 @@
     "model": "opus",
     "includeCoAuthoredBy": true,
     "permissions": {
-        "allow": [],
+        "allow": [
+            "Bash(git status:*)",
+            "Bash(git diff:*)",
+            "Bash(git log:*)",
+            "Bash(git show:*)",
+            "Bash(ls:*)",
+            "Bash(pwd:*)",
+            "Bash(cat:*)",
+            "Bash(file:*)",
+            "Bash(stat:*)",
+            "Bash(rg:*)",
+            "Bash(fdfind:*)",
+            "Bash(tree:*)",
+            "Bash(jq:*)",
+            "Bash(wc:*)",
+            "Bash(head:*)",
+            "Bash(tail:*)",
+            "Bash(ruff:*)"
+        ],
         "deny": [],
-        "ask": []
+        "ask": [
+            "Bash(rm:*)",
+            "Bash(mv:*)",
+            "Bash(git commit:*)",
+            "Bash(git push:*)"
+        ]
     },
     "statusLine": {
         "type": "command",
