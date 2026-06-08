@@ -68,7 +68,8 @@ vim.api.nvim_create_autocmd("FileType", {
     desc = "Close NvimTree and Undotree with Escape",
     pattern = { "NvimTree", "undotree" },
     callback = function(event)
-        vim.keymap.set("n", "<Esc>", "<cmd>close<CR>", { buffer = event.buf, silent = true })
+        local close = event.match == "undotree" and "<cmd>UndotreeHide<CR>" or "<cmd>close<CR>"
+        vim.keymap.set("n", "<Esc>", close, { buffer = event.buf, silent = true })
     end,
 })
 
