@@ -1,0 +1,26 @@
+---
+- name: Install Claude Code
+  ansible.builtin.shell:
+    cmd: "set -o pipefail && curl -fsSL https://claude.ai/install.sh | bash"
+    executable: /usr/bin/bash
+    creates: "{{ ansible_env.HOME }}/.local/bin/claude"
+
+- name: Create Claude Code config directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.claude"
+    state: directory
+    mode: "0755"
+
+- name: Copy Claude Code configuration files
+  ansible.builtin.copy:
+    src: "{{ item.name }}"
+    dest: "{{ ansible_env.HOME }}/.claude/{{ item.name }}"
+    mode: "{{ item.mode }}"
+    backup: true
+  loop:
+    - { name: statusline.py, mode: "0755" }
+    - { name: notify-tmux.sh, mode: "0755" }
+    - { name: CLAUDE.md, mode: "0644" }
+    - { name: settings.json, mode: "0644" }
+  loop_control:
+    label: "{{ item.name }}"

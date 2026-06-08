@@ -22,3 +22,7 @@ alias vi='nvim'
 alias svi='sudo nvim'
 
 alias cat='batcat'
+
+alias c='claude'
+alias cc='claude --continue'
+alias cr='claude --resume'
