@@ -1,25 +1,13 @@
 ---
-- name: Create apt keyrings directory
-  become: true
-  ansible.builtin.file:
-    path: /etc/apt/keyrings
-    state: directory
-    mode: "755"
-
-- name: Add HashiCorp GPG key
-  become: true
-  ansible.builtin.get_url:
-    url: https://apt.releases.hashicorp.com/gpg
-    dest: /etc/apt/keyrings/hashicorp.asc
-    mode: "644"
-
 - name: Add HashiCorp repository
   become: true
-  ansible.builtin.apt_repository:
-    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com {{ ansible_distribution_release | lower }} main"
-    state: present
-    filename: hashicorp
-    mode: "644"
+  ansible.builtin.deb822_repository:
+    name: hashicorp
+    uris: https://apt.releases.hashicorp.com
+    suites: "{{ ansible_distribution_release | lower }}"
+    components: main
+    architectures: amd64
+    signed_by: https://apt.releases.hashicorp.com/gpg
 
 - name: Install terraform
   become: true

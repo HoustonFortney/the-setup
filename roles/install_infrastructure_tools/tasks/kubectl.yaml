@@ -1,27 +1,11 @@
 ---
-- name: Create apt keyrings directory
-  become: true
-  ansible.builtin.file:
-    path: /etc/apt/keyrings
-    state: directory
-    mode: "755"
-
-- name: Add Kubernetes apt key
-  become: true
-  ansible.builtin.get_url:
-    url: https://pkgs.k8s.io/core:/stable:/v{{ install_infrastructure_tools_kubectl_version }}/deb/Release.key
-    dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
-    mode: "644"
-
 - name: Add Kubernetes apt repository
   become: true
-  ansible.builtin.apt_repository:
-    repo: >
-      deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc]
-      https://pkgs.k8s.io/core:/stable:/v{{ install_infrastructure_tools_kubectl_version }}/deb/ /
-    filename: kubernetes
-    state: present
-    mode: "644"
+  ansible.builtin.deb822_repository:
+    name: kubernetes
+    uris: https://pkgs.k8s.io/core:/stable:/v{{ install_infrastructure_tools_kubectl_version }}/deb/
+    suites: "/"
+    signed_by: https://pkgs.k8s.io/core:/stable:/v{{ install_infrastructure_tools_kubectl_version }}/deb/Release.key
 
 - name: Install kubectl
   become: true
