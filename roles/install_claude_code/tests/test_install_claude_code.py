@@ -26,6 +26,13 @@ def test_status_line_script_deployed(host):
     assert script.mode & 0o100, "Status line script should be executable"
 
 
+def test_notification_hook_deployed(host):
+    user = host.user()
+    script = host.file(f"{user.home}/.claude/notify-tmux.sh")
+    assert script.exists, "Notification hook script should be deployed"
+    assert script.mode & 0o100, "Notification hook script should be executable"
+
+
 def test_global_instructions_deployed(host):
     user = host.user()
     instructions = host.file(f"{user.home}/.claude/CLAUDE.md")

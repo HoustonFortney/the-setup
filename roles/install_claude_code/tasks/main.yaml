@@ -18,6 +18,13 @@
     mode: "0755"
     backup: true
 
+- name: Copy Claude Code notification hook script
+  ansible.builtin.copy:
+    src: "notify-tmux.sh"
+    dest: "{{ ansible_env.HOME }}/.claude/notify-tmux.sh"
+    mode: "0755"
+    backup: true
+
 - name: Copy Claude Code global instructions
   ansible.builtin.copy:
     src: "CLAUDE.md"
