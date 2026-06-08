@@ -131,8 +131,12 @@ map("n", "N", "Nzzzv", { desc = "Previous search result and center" })
 
 map("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Substitute word under cursor" })
 
-map("x", "<leader>p", [["_dP]], { desc = "Paste without overwriting clipboard" })
+map("x", "p", [["_dP]], { desc = "Paste over selection without overwriting clipboard" })
 map({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without overwriting clipboard" })
+
+for _, key in ipairs({ "c", "C", "x", "s", "S" }) do
+    map({ "n", "x" }, key, '"d' .. key, { desc = key .. " into register d (keeps clipboard)" })
+end
 
 map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlighting" })
 
