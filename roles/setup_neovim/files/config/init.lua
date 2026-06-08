@@ -136,6 +136,8 @@ map({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without overwriting cli
 
 map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlighting" })
 
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
+
 map("n", "<leader>qq", ":bufdo bwipeout<CR>", { desc = "Close all buffers" })
 
 -- Quick run
@@ -511,14 +513,13 @@ require("lazy").setup({
                 bufmap("n", "gi", telescope_builtin.lsp_implementations, "Go to implementation")
                 bufmap("n", "K", vim.lsp.buf.hover, "Hover documentation")
                 bufmap("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
-                bufmap("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+                bufmap("n", "<leader>f", function()
+                    vim.lsp.buf.format({ async = true })
+                end, "Format buffer")
                 bufmap("n", "<leader>sr", telescope_builtin.lsp_references, "Search references")
                 bufmap("n", "<leader>sd", function()
                     telescope_builtin.diagnostics({ bufnr = 0 })
                 end, "Search diagnostics")
-                bufmap("n", "<leader>f", function()
-                    vim.lsp.buf.format({ async = true })
-                end, "Format buffer")
             end
 
             local servers = {
