@@ -340,7 +340,9 @@ require("lazy").setup({
     },
     {
         "christopher-francisco/tmux-status.nvim",
-        opts = {},
+        opts = {
+            manage_tmux_status = false,
+        },
     },
     {
         "nvim-lualine/lualine.nvim",
