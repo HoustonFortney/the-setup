@@ -23,8 +23,7 @@
 
 - name: Install tmux plugins
   ansible.builtin.command: ~/.tmux/plugins/tpm/bin/install_plugins
-  args:
-    creates: ~/.tmux/plugins/tpm/installed_plugins
   environment:
     TMUX_PLUGIN_MANAGER_PATH: ~/.tmux/plugins
-  changed_when: false
+  register: install_tmux_plugins_result
+  changed_when: "'Installing' in install_tmux_plugins_result.stdout"
