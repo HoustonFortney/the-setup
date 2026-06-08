@@ -62,6 +62,8 @@ def main():
         data = {}
 
     model = (data.get("model") or {}).get("display_name") or "Claude"
+    effort = (data.get("effort") or {}).get("level")
+    model_segment = f"{model} {effort}" if effort else model
 
     cost = data.get("cost") or {}
     cost_usd = cost.get("total_cost_usd", 0) or 0
@@ -78,7 +80,7 @@ def main():
     ctx_color = RED if pct >= CTX_CRITICAL_PCT else YELLOW if pct >= CTX_WARNING_PCT else GREEN
 
     segments = [
-        color(model, CYAN),
+        color(model_segment, CYAN),
         color(f"{fmt_k(used)}/{fmt_k(limit)} ({pct}%)", ctx_color),
         color(f"${cost_usd:.2f}", PINK),
         color(fmt_duration(dur_ms), PURPLE),
