@@ -1,15 +1,22 @@
 ---
+- name: Create apt keyrings directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "755"
+
 - name: Add Helm apt key
   become: true
-  ansible.builtin.apt_key:
+  ansible.builtin.get_url:
     url: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
-    keyring: /usr/share/keyrings/helm.gpg
-    state: present
+    dest: /etc/apt/keyrings/helm.asc
+    mode: "644"
 
 - name: Add Helm apt repository
   become: true
   ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/helm.gpg] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main"
+    repo: "deb [signed-by=/etc/apt/keyrings/helm.asc] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main"
     filename: helm-stable-debian
     state: present
     mode: "644"

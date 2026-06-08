@@ -13,8 +13,10 @@ scenario:
 driver:
   name: docker
 platforms:
-  - name: ubuntu
+  - name: ubuntu-24
     image: ubuntu:24.04
+  - name: ubuntu-26
+    image: ubuntu:26.04
 provisioner:
   name: ansible
   config_options:
