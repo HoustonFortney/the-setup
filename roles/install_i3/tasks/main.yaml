@@ -10,7 +10,7 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    mode: "755"
+    mode: "0755"
   loop:
     - "{{ ansible_env.HOME }}/.config/i3"
     - "{{ ansible_env.HOME }}/.config/i3blocks"
@@ -19,7 +19,7 @@
   ansible.builtin.copy:
     src: "i3_config"
     dest: "{{ ansible_env.HOME }}/.config/i3/config"
-    mode: "644"
+    mode: "0644"
     backup: true
   notify: Restart i3
 
@@ -27,7 +27,7 @@
   ansible.builtin.copy:
     src: "i3blocks_config"
     dest: "{{ ansible_env.HOME }}/.config/i3blocks/config"
-    mode: "644"
+    mode: "0644"
     backup: true
   notify: Restart i3
 
@@ -38,7 +38,7 @@
       # example:
       # workspace 1 output HDMI-1
     dest: "{{ ansible_env.HOME }}/.config/i3/outputs.conf"
-    mode: "644"
+    mode: "0644"
     force: false
 
 - name: Copy scripts
@@ -46,7 +46,7 @@
   ansible.builtin.copy:
     src: "scripts/"
     dest: "/usr/local/bin/"
-    mode: "755"
+    mode: "0755"
 
 - name: Configure rofi
   ansible.builtin.import_tasks: rofi.yaml

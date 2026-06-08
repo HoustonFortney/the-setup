@@ -4,4 +4,4 @@
   ansible.builtin.copy:
     src: "scripts/"
     dest: "/usr/local/bin/"
-    mode: "755"
+    mode: "0755"

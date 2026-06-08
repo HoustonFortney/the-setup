@@ -16,7 +16,7 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    mode: "755"
+    mode: "0755"
   loop:
     - "{{ ansible_env.HOME }}/.config/alacritty"
     - "{{ ansible_env.HOME }}/.config/alacritty/themes/dracula"
@@ -25,14 +25,14 @@
   ansible.builtin.copy:
     src: "alacritty.toml"
     dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.toml"
-    mode: "644"
+    mode: "0644"
     backup: true
 
 - name: Download Dracula theme for Alacritty
   ansible.builtin.get_url:
     url: "https://github.com/dracula/alacritty/archive/master.zip"
     dest: "/tmp/dracula-alacritty.zip"
-    mode: "644"
+    mode: "0644"
 
 - name: Unzip Dracula theme
   ansible.builtin.unarchive:

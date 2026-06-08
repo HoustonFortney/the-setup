@@ -3,13 +3,13 @@
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.local/share/fonts"
     state: directory
-    mode: "755"
+    mode: "0755"
 
 - name: Download nerd font
   ansible.builtin.get_url:
     url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ install_fonts_nerd_font }}.tar.xz
     dest: /tmp/{{ install_fonts_nerd_font }}.tar.xz
-    mode: "644"
+    mode: "0644"
 
 - name: Unpack nerd font
   ansible.builtin.unarchive:

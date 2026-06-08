@@ -10,12 +10,12 @@
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config/bat"
     state: directory
-    mode: "755"
+    mode: "0755"
 
 - name: Copy bat config file
   ansible.builtin.copy:
     content: |
       --theme=Dracula
     dest: "{{ ansible_env.HOME }}/.config/bat/config"
-    mode: "644"
+    mode: "0644"
     backup: true
