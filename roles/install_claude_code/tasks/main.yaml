@@ -11,30 +11,16 @@
     state: directory
     mode: "0755"
 
-- name: Copy Claude Code status line script
+- name: Copy Claude Code configuration files
   ansible.builtin.copy:
-    src: "statusline.py"
-    dest: "{{ ansible_env.HOME }}/.claude/statusline.py"
-    mode: "0755"
+    src: "{{ item.name }}"
+    dest: "{{ ansible_env.HOME }}/.claude/{{ item.name }}"
+    mode: "{{ item.mode }}"
     backup: true
-
-- name: Copy Claude Code notification hook script
-  ansible.builtin.copy:
-    src: "notify-tmux.sh"
-    dest: "{{ ansible_env.HOME }}/.claude/notify-tmux.sh"
-    mode: "0755"
-    backup: true
-
-- name: Copy Claude Code global instructions
-  ansible.builtin.copy:
-    src: "CLAUDE.md"
-    dest: "{{ ansible_env.HOME }}/.claude/CLAUDE.md"
-    mode: "0644"
-    backup: true
-
-- name: Copy Claude Code settings
-  ansible.builtin.copy:
-    src: "settings.json"
-    dest: "{{ ansible_env.HOME }}/.claude/settings.json"
-    mode: "0644"
-    backup: true
+  loop:
+    - { name: statusline.py, mode: "0755" }
+    - { name: notify-tmux.sh, mode: "0755" }
+    - { name: CLAUDE.md, mode: "0644" }
+    - { name: settings.json, mode: "0644" }
+  loop_control:
+    label: "{{ item.name }}"
