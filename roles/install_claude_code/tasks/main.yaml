@@ -18,6 +18,13 @@
     mode: "0755"
     backup: true
 
+- name: Copy Claude Code global instructions
+  ansible.builtin.copy:
+    src: "CLAUDE.md"
+    dest: "{{ ansible_env.HOME }}/.claude/CLAUDE.md"
+    mode: "0644"
+    backup: true
+
 - name: Copy Claude Code settings
   ansible.builtin.copy:
     src: "settings.json"

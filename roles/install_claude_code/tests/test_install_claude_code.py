@@ -24,3 +24,9 @@ def test_status_line_script_deployed(host):
     script = host.file(f"{user.home}/.claude/statusline.py")
     assert script.exists, "Status line script should be deployed"
     assert script.mode & 0o100, "Status line script should be executable"
+
+
+def test_global_instructions_deployed(host):
+    user = host.user()
+    instructions = host.file(f"{user.home}/.claude/CLAUDE.md")
+    assert instructions.exists, "Global CLAUDE.md should be deployed"
