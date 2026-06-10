@@ -33,7 +33,7 @@ As this repository is specific to my personal configuration, you likely want to 
 This playbook installs/configures:
 
 - [Neovim](https://neovim.io/)
-- Basic operating tools: [i3](https://i3wm.org/), [rofi](https://github.com/davatorium/rofi), [Alacritty](https://github.com/alacritty/alacritty)
+- Basic operating tools: [i3](https://i3wm.org/), [rofi](https://github.com/davatorium/rofi), [kitty](https://sw.kovidgoyal.net/kitty/)
 - Nerd Fonts
 - Bash shell customization
 - Development tools: [Docker](https://www.docker.com/), [Node.js](https://nodejs.org), [uv](https://github.com/astral-sh/uv), [Rust](https://www.rust-lang.org/)
