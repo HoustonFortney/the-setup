@@ -12,6 +12,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xset s 600
 exec --no-startup-id xss-lock --transfer-sleep-lock -- lock --nofork
 exec --no-startup-id nm-applet
+exec_always --no-startup-id setxkbmap -option caps:escape
 
 include ~/.config/i3/outputs.conf
 
