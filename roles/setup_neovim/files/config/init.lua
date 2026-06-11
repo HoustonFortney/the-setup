@@ -318,6 +318,10 @@ require("lazy").setup({
             { "<C-j>", "<cmd>TmuxNavigateDown<cr>",  desc = "Navigate to down tmux pane" },
             { "<C-k>", "<cmd>TmuxNavigateUp<cr>",    desc = "Navigate to up tmux pane" },
             { "<C-l>", "<cmd>TmuxNavigateRight<cr>", desc = "Navigate to right tmux pane" },
+            { "<C-h>", [[<C-\><C-n><cmd>TmuxNavigateLeft<cr>]],  mode = "t", desc = "Navigate to left tmux pane" },
+            { "<C-j>", [[<C-\><C-n><cmd>TmuxNavigateDown<cr>]],  mode = "t", desc = "Navigate to down tmux pane" },
+            { "<C-k>", [[<C-\><C-n><cmd>TmuxNavigateUp<cr>]],    mode = "t", desc = "Navigate to up tmux pane" },
+            { "<C-l>", [[<C-\><C-n><cmd>TmuxNavigateRight<cr>]], mode = "t", desc = "Navigate to right tmux pane" },
         },
     },
     {
