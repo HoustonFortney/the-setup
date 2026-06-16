@@ -17,8 +17,10 @@
     value: "{{ item.value }}"
   loop:
     - { name: a, value: "add -u" }
-    - { name: ll, value: "log --oneline --graph --decorate --all" }
+    - { name: s, value: "status -sb" }
+    - { name: l, value: "log --oneline --graph --decorate" }
+    - { name: c, value: "commit" }
+    - { name: cc, value: 'commit --trailer "Co-authored-by: Claude <noreply@anthropic.com>"' }
     - { name: amend, value: "commit --amend --no-edit" }
     - { name: fixup, value: "commit --fixup" }
     - { name: pushf, value: "push --force-with-lease" }
-    - { name: cc, value: 'commit --trailer "Co-authored-by: Claude <noreply@anthropic.com>"' }
