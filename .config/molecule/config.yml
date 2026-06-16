@@ -4,8 +4,11 @@ driver:
 platforms:
   - name: ubuntu-24
     image: ubuntu:24.04
+    tmpfs: &stig_tmpfs
+      - "/tmp:rw,noexec,nosuid,size=2g"  # Simulate STIG's noexec /tmp mount
   - name: ubuntu-26
     image: ubuntu:26.04
+    tmpfs: *stig_tmpfs
 provisioner:
   name: ansible
   config_options:
