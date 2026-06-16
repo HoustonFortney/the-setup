@@ -15,3 +15,9 @@ def test_lazygit_config_uses_delta(host):
     config = host.file(f"{user.home}/.config/lazygit/config.yml")
     assert config.exists
     assert config.contains("delta")
+
+
+def test_lazygit_alias_is_loaded(host):
+    result = host.run("bash -i -c 'alias lg'")
+    assert result.rc == 0, "lg alias should be defined"
+    assert "lazygit" in result.stdout
