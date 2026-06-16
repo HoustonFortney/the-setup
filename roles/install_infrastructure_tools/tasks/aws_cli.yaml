@@ -1,20 +1,23 @@
 ---
-- name: Download AWS CLI v2 bundle
-  ansible.builtin.get_url:
-    url: https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.zip
-    dest: /var/tmp/awscliv2.zip
-    mode: "0644"
+- name: Ensure exec-permitted staging directory exists
+  become: true
+  ansible.builtin.file:
+    path: /var/cache/the-setup
+    state: directory
+    mode: "0700"
 
-- name: Unzip AWS CLI bundle
+- name: Download and unpack AWS CLI v2 bundle
+  become: true
   ansible.builtin.unarchive:
-    src: /var/tmp/awscliv2.zip
-    dest: /var/tmp
+    src: https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.zip
+    dest: /var/cache/the-setup
     remote_src: true
+    creates: /var/cache/the-setup/aws/install
 
 - name: Install AWS CLI v2
   become: true
   ansible.builtin.shell: |
     umask 022
-    /var/tmp/aws/install
+    /var/cache/the-setup/aws/install
   args:
     creates: /usr/local/bin/aws

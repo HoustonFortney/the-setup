@@ -1,20 +1,30 @@
 ---
+- name: Ensure exec-permitted temp directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.cache/the-setup"
+    state: directory
+    mode: "0700"
+
 - name: Download rustup install script
   ansible.builtin.get_url:
     url: "https://sh.rustup.rs"
-    dest: /tmp/rustup_install.sh
+    dest: "{{ ansible_env.HOME }}/.cache/the-setup/rustup_install.sh"
     mode: "0755"
 
 - name: Install rust
-  ansible.builtin.command: /tmp/rustup_install.sh -y
+  ansible.builtin.command: "{{ ansible_env.HOME }}/.cache/the-setup/rustup_install.sh -y"
   args:
     creates: "{{ ansible_env.HOME }}/.cargo/bin/cargo"
+  environment:
+    TMPDIR: "{{ ansible_env.HOME }}/.cache/the-setup"
 
 - name: Install cargo packages
   ansible.builtin.command: "{{ ansible_env.HOME }}/.cargo/bin/cargo install {{ item }}"
   args:
     creates: "{{ ansible_env.HOME }}/.cargo/bin/{{ item }}"
   loop: "{{ install_rust_tools_cargo_packages }}"
+  environment:
+    TMPDIR: "{{ ansible_env.HOME }}/.cache/the-setup"
 
 - name: Ensure systemd user environment directory exists
   ansible.builtin.file:

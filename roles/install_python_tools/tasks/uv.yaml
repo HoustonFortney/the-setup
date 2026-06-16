@@ -1,11 +1,19 @@
 ---
+- name: Ensure exec-permitted temp directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.cache/the-setup"
+    state: directory
+    mode: "0700"
+
 - name: Download uv install script
   ansible.builtin.get_url:
     url: "https://astral.sh/uv/install.sh"
-    dest: /tmp/uv_install.sh
+    dest: "{{ ansible_env.HOME }}/.cache/the-setup/uv_install.sh"
     mode: "0755"
 
 - name: Install uv
-  ansible.builtin.command: /tmp/uv_install.sh
+  ansible.builtin.command: "{{ ansible_env.HOME }}/.cache/the-setup/uv_install.sh"
   args:
     creates: "{{ ansible_env.HOME }}/.local/bin/uv"
+  environment:
+    TMPDIR: "{{ ansible_env.HOME }}/.cache/the-setup"
