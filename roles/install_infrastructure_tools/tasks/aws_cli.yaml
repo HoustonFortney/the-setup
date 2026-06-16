@@ -21,3 +21,9 @@
     /var/cache/the-setup/aws/install
   args:
     creates: /usr/local/bin/aws
+
+- name: Enable aws bash completion
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "complete -C '/usr/local/bin/aws_completer' aws"
+    state: present

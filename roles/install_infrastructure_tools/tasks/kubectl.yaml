@@ -22,3 +22,9 @@
     name: kubectl
     state: present
     update_cache: true
+
+- name: Enable kubectl bash completion
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "source <(kubectl completion bash)"
+    state: present
