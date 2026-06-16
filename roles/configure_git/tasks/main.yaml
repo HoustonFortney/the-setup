@@ -59,3 +59,9 @@
     dest: "{{ ansible_env.HOME }}/.config/lazygit/config.yml"
     mode: "0644"
     backup: true
+
+- name: Add lazygit alias to bash
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "alias lg='lazygit'"
+    state: present

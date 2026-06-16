@@ -24,3 +24,13 @@
     - { name: settings.json, mode: "0644" }
   loop_control:
     label: "{{ item.name }}"
+
+- name: Configure claude aliases in bash
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - "alias c='claude'"
+    - "alias cc='claude --continue'"
+    - "alias cr='claude --resume'"

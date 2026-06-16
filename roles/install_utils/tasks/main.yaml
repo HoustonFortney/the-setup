@@ -19,3 +19,25 @@
     dest: "{{ ansible_env.HOME }}/.config/bat/config"
     mode: "0644"
     backup: true
+
+- name: Configure utility aliases in bash
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - "alias fd='fdfind'"
+    - "alias cat='batcat'"
+
+- name: Install clipboard helpers script
+  ansible.builtin.copy:
+    src: clipboard.sh
+    dest: "{{ ansible_env.HOME }}/.bash_clipboard"
+    mode: "0644"
+    backup: true
+
+- name: Source clipboard helpers from bash
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "source ~/.bash_clipboard"
+    state: present

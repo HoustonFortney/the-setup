@@ -32,3 +32,30 @@
 - name: Sync lazy plugins for neovim
   ansible.builtin.command: nvim --headless +Lazy! restore +qa
   changed_when: false
+
+- name: Configure nvim aliases in bash
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - "alias vim='nvim'"
+    - "alias vi='nvim'"
+    - "alias svi='sudo nvim'"
+
+- name: Configure tvi (tmux + nvim) helper in bash
+  ansible.builtin.blockinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    marker: "# {mark} ANSIBLE MANAGED: setup_neovim"
+    block: |
+      # Tmux + nvim open
+      tvi() {
+          local root name
+
+          if root=$(git rev-parse --show-toplevel 2> /dev/null); then
+              name=$(basename "$root")
+              tmux attach -t "$name" || tmux new -s "$name" -c "$root" nvim
+          else
+              tmux attach || tmux new nvim
+          fi
+      }

@@ -5,3 +5,9 @@
     src: "scripts/"
     dest: "/usr/local/bin/"
     mode: "0755"
+
+- name: Add quick-run alias to bash
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "alias qr='quick-run'"
+    state: present

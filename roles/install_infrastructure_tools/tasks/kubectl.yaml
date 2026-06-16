@@ -28,3 +28,9 @@
     path: "{{ ansible_env.HOME }}/.bashrc"
     line: "source <(kubectl completion bash)"
     state: present
+
+- name: Add kubectl alias to bash
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "alias kc='kubectl'"
+    state: present
