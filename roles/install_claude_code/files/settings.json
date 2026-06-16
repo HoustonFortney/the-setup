@@ -23,8 +23,6 @@
         ],
         "deny": [],
         "ask": [
-            "Bash(rm:*)",
-            "Bash(mv:*)",
             "Bash(git commit:*)",
             "Bash(git push:*)"
         ]

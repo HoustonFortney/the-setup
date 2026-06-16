@@ -1,0 +1,8 @@
+---
+- name: Allow shutdown and reboot without password
+  become: true
+  ansible.builtin.template:
+    src: shutdown-nopasswd.j2
+    dest: /etc/sudoers.d/shutdown-nopasswd
+    mode: "0440"
+    validate: /usr/sbin/visudo -cf %s

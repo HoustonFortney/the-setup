@@ -26,3 +26,5 @@ alias cat='batcat'
 alias c='claude'
 alias cc='claude --continue'
 alias cr='claude --resume'
+
+alias av='source .venv/bin/activate'

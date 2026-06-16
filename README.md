@@ -8,7 +8,7 @@ This playbook installs and configures everything required to get from a fresh ub
 
 ## 📋 Prerequisites
 
-- **Operating System**: Ubuntu/Debian-based Linux distribution (tested on Ubuntu 22.04 Jammy)
+- **Operating System**: Ubuntu/Debian-based Linux distribution (tested on Ubuntu 26.04 Resolute)
 - **Python**: Version 3.12 or higher
 - **uv**: Python package manager ([installation guide](https://docs.astral.sh/uv/getting-started/installation/))
 
@@ -32,21 +32,22 @@ As this repository is specific to my personal configuration, you likely want to 
 
 This playbook installs/configures:
 
-- Neovim
+- [Neovim](https://neovim.io/)
 - Basic operating tools: [i3](https://i3wm.org/), [rofi](https://github.com/davatorium/rofi), [Alacritty](https://github.com/alacritty/alacritty)
+- Nerd Fonts
 - Bash shell customization
-- Development tools: [Docker](https://www.docker.com/), [Node.js](https://nodejs.org), [uv](https://github.com/astral-sh/uv)
+- Development tools: [Docker](https://www.docker.com/), [Node.js](https://nodejs.org), [uv](https://github.com/astral-sh/uv), [Rust](https://www.rust-lang.org/)
+- [Claude Code](https://www.claude.com/product/claude-code)
 - Infrastructure tools: [Terraform](https://www.terraform.io/), [Kubernetes kubectl](https://kubernetes.io/docs/tasks/tools/), [Helm](https://helm.sh/), [aws-cli](https://aws.amazon.com/cli/)
 - General utilities: `jq`, `tmux`, `traceroute`, `speedtest-cli`, etc.
 - Scripts for customized workflows
 
 ## 🧪 Testing
 
-This project uses [Molecule](https://molecule.readthedocs.io/) with Vagrant and VirtualBox to test the Ansible roles in an isolated environment.
+This project uses [Molecule](https://molecule.readthedocs.io/) with the Docker driver to test the Ansible roles in isolated Ubuntu containers (`ubuntu:24.04` and `ubuntu:26.04`).
 
 ### Prerequisites for Testing
-- VirtualBox
-- Vagrant
+- Docker
 - Python dependencies (managed by uv)
 
 ### Run Tests
@@ -59,7 +60,7 @@ uv run ansible-lint
 uv run ruff format
 uv run ruff check
 
-# Run full integration tests (creates VM, applies playbook, runs tests)
+# Run full integration tests (creates container, applies playbook, runs tests)
 uv run molecule test
 ```
 

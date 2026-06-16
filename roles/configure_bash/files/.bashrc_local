@@ -4,8 +4,13 @@ BASHRC_LOCAL_SOURCED=true
 set -o vi
 export EDITOR=vim
 
-# Add timestamps to history
+# History
 HISTTIMEFORMAT="%F %T "
+HISTSIZE=100000
+HISTFILESIZE=200000
+HISTCONTROL=ignoreboth
+shopt -s histappend
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }history -a"
 
 # Add git info to the prompt
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[33m\]$(GIT_PS1_SHOWUNTRACKEDFILES=1 GIT_PS1_SHOWDIRTYSTATE=1 __git_ps1)\[\033[00m\]\$ '
@@ -16,6 +21,25 @@ complete -C '/usr/bin/terraform' terraform
 source <(kubectl completion bash)
 source <(helm completion bash)
 complete -C '/usr/local/bin/aws_completer' aws
+
+# fzf key bindings (Ctrl-R history, Ctrl-T files, Alt-C cd) and completion
+if fzf --bash > /dev/null 2>&1; then
+    # fzf >= 0.48
+    eval "$(fzf --bash)"
+else
+    # Older packaged fzf ships standalone scripts
+    [ -f /usr/share/doc/fzf/examples/key-bindings.bash ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+    [ -f /usr/share/bash-completion/completions/fzf ] && source /usr/share/bash-completion/completions/fzf
+fi
+# Dracula color theme
+export FZF_DEFAULT_OPTS="
+  --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
+  --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
+  --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
+  --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4"
+export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND='fdfind --type d --hidden --follow --exclude .git'
 
 # Tmux + nvim open
 tvi() {

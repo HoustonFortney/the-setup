@@ -1,24 +1,20 @@
 ---
-- name: Create apt keyrings directory
+- name: Remove legacy NodeSource apt list file
+  # Superseded by the deb822 .sources file below. An older version of this role
+  # used apt_repository, which wrote nodesource.list; leaving it causes a
+  # conflicting Signed-By error in apt.
   ansible.builtin.file:
-    path: /etc/apt/keyrings
-    state: directory
-    mode: "755"
-  become: true
-
-- name: Add NodeSource GPG keyring
-  ansible.builtin.get_url:
-    url: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
-    dest: /etc/apt/keyrings/nodesource.asc
-    mode: "644"
+    path: /etc/apt/sources.list.d/nodesource.list
+    state: absent
   become: true
 
 - name: Add NodeSource repo
-  ansible.builtin.apt_repository:
-    repo: "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_{{ install_nodejs_major_version }}.x nodistro main"
-    state: present
-    filename: nodesource
-    mode: "644"
+  ansible.builtin.deb822_repository:
+    name: nodesource
+    uris: https://deb.nodesource.com/node_{{ install_nodejs_major_version }}.x
+    suites: nodistro
+    components: main
+    signed_by: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
   become: true
 
 - name: Install node

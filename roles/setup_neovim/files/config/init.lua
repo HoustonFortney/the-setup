@@ -68,7 +68,8 @@ vim.api.nvim_create_autocmd("FileType", {
     desc = "Close NvimTree and Undotree with Escape",
     pattern = { "NvimTree", "undotree" },
     callback = function(event)
-        vim.keymap.set("n", "<Esc>", "<cmd>close<CR>", { buffer = event.buf, silent = true })
+        local close = event.match == "undotree" and "<cmd>UndotreeHide<CR>" or "<cmd>close<CR>"
+        vim.keymap.set("n", "<Esc>", close, { buffer = event.buf, silent = true })
     end,
 })
 
@@ -131,10 +132,16 @@ map("n", "N", "Nzzzv", { desc = "Previous search result and center" })
 
 map("n", "<leader>r", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Substitute word under cursor" })
 
-map("x", "<leader>p", [["_dP]], { desc = "Paste without overwriting clipboard" })
+map("x", "p", [["_dP]], { desc = "Paste over selection without overwriting clipboard" })
 map({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete without overwriting clipboard" })
 
+for _, key in ipairs({ "c", "C", "x", "s", "S" }) do
+    map({ "n", "x" }, key, '"d' .. key, { desc = key .. " into register d (keeps clipboard)" })
+end
+
 map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlighting" })
+
+map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
 
 map("n", "<leader>qq", ":bufdo bwipeout<CR>", { desc = "Close all buffers" })
 
@@ -214,6 +221,11 @@ require("lazy").setup({
                 pickers = {
                     find_files = {
                         hidden = true,
+                    },
+                    live_grep = {
+                        additional_args = function()
+                            return { "--hidden" }
+                        end,
                     },
                 },
                 extensions = {
@@ -306,6 +318,10 @@ require("lazy").setup({
             { "<C-j>", "<cmd>TmuxNavigateDown<cr>",  desc = "Navigate to down tmux pane" },
             { "<C-k>", "<cmd>TmuxNavigateUp<cr>",    desc = "Navigate to up tmux pane" },
             { "<C-l>", "<cmd>TmuxNavigateRight<cr>", desc = "Navigate to right tmux pane" },
+            { "<C-h>", [[<C-\><C-n><cmd>TmuxNavigateLeft<cr>]],  mode = "t", desc = "Navigate to left tmux pane" },
+            { "<C-j>", [[<C-\><C-n><cmd>TmuxNavigateDown<cr>]],  mode = "t", desc = "Navigate to down tmux pane" },
+            { "<C-k>", [[<C-\><C-n><cmd>TmuxNavigateUp<cr>]],    mode = "t", desc = "Navigate to up tmux pane" },
+            { "<C-l>", [[<C-\><C-n><cmd>TmuxNavigateRight<cr>]], mode = "t", desc = "Navigate to right tmux pane" },
         },
     },
     {
@@ -340,7 +356,9 @@ require("lazy").setup({
     },
     {
         "christopher-francisco/tmux-status.nvim",
-        opts = {},
+        opts = {
+            manage_tmux_status = false,
+        },
     },
     {
         "nvim-lualine/lualine.nvim",
@@ -509,14 +527,13 @@ require("lazy").setup({
                 bufmap("n", "gi", telescope_builtin.lsp_implementations, "Go to implementation")
                 bufmap("n", "K", vim.lsp.buf.hover, "Hover documentation")
                 bufmap("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
-                bufmap("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+                bufmap("n", "<leader>f", function()
+                    vim.lsp.buf.format({ async = true })
+                end, "Format buffer")
                 bufmap("n", "<leader>sr", telescope_builtin.lsp_references, "Search references")
                 bufmap("n", "<leader>sd", function()
                     telescope_builtin.diagnostics({ bufnr = 0 })
                 end, "Search diagnostics")
-                bufmap("n", "<leader>f", function()
-                    vim.lsp.buf.format({ async = true })
-                end, "Format buffer")
             end
 
             local servers = {

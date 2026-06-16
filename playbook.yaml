@@ -8,6 +8,7 @@
     - configure_bash
     - install_i3
     - configure_git
+    - configure_sudo
     - role: install_docker
       tags: molecule-notest
     - quick_run

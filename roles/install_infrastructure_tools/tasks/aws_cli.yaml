@@ -3,7 +3,7 @@
   ansible.builtin.get_url:
     url: https://awscli.amazonaws.com/awscli-exe-linux-{{ ansible_architecture }}.zip
     dest: /var/tmp/awscliv2.zip
-    mode: "644"
+    mode: "0644"
 
 - name: Unzip AWS CLI bundle
   ansible.builtin.unarchive:
