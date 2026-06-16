@@ -1,4 +1,13 @@
 ---
+- name: Remove legacy Docker apt list file
+  become: true
+  # Superseded by the deb822 .sources file below. An older version of this role
+  # used apt_repository, which wrote docker.list; leaving it causes a
+  # conflicting Signed-By error in apt.
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/docker.list
+    state: absent
+
 - name: Add Docker repository
   become: true
   ansible.builtin.deb822_repository:

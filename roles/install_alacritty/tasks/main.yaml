@@ -1,4 +1,13 @@
 ---
+- name: Remove legacy Alacritty PPA list file
+  become: true
+  # Older versions of this role used the apt_repository module, which wrote a
+  # keyless .list file. It conflicts (Signed-By) with the deb822 .sources file
+  # created by add-apt-repository below, breaking apt update.
+  ansible.builtin.file:
+    path: "/etc/apt/sources.list.d/ppa_aslatter_ppa_{{ ansible_distribution_release }}.list"
+    state: absent
+
 - name: Add apt repository for Alacritty
   become: true
   ansible.builtin.command:

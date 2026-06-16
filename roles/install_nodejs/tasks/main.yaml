@@ -1,4 +1,13 @@
 ---
+- name: Remove legacy NodeSource apt list file
+  # Superseded by the deb822 .sources file below. An older version of this role
+  # used apt_repository, which wrote nodesource.list; leaving it causes a
+  # conflicting Signed-By error in apt.
+  ansible.builtin.file:
+    path: /etc/apt/sources.list.d/nodesource.list
+    state: absent
+  become: true
+
 - name: Add NodeSource repo
   ansible.builtin.deb822_repository:
     name: nodesource
