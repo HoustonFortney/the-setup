@@ -4,3 +4,5 @@ dependencies:
   - role: install_fonts
   - role: install_nodejs
   - role: install_utils
+  - role: quick_run
+  - role: install_rust_tools
