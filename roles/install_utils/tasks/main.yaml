@@ -21,6 +21,7 @@
     backup: true
 
 - name: Configure utility aliases in bash
+  become: false
   ansible.builtin.lineinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
     line: "{{ item }}"
@@ -37,6 +38,7 @@
     backup: true
 
 - name: Source clipboard helpers from bash
+  become: false
   ansible.builtin.lineinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
     line: "source ~/.bash_clipboard"

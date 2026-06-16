@@ -19,6 +19,7 @@
     TMPDIR: "{{ ansible_env.HOME }}/.cache/the-setup"
 
 - name: Enable uv bash completion
+  become: false
   ansible.builtin.lineinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
     line: 'eval "$(uv generate-shell-completion bash)"'

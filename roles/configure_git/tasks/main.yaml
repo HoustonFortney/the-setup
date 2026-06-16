@@ -61,6 +61,7 @@
     backup: true
 
 - name: Add lazygit alias to bash
+  become: false
   ansible.builtin.lineinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
     line: "alias lg='lazygit'"

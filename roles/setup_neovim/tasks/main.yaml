@@ -34,6 +34,7 @@
   changed_when: false
 
 - name: Configure nvim aliases in bash
+  become: false
   ansible.builtin.lineinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
     line: "{{ item }}"
@@ -44,6 +45,7 @@
     - "alias svi='sudo nvim'"
 
 - name: Configure tvi (tmux + nvim) helper in bash
+  become: false
   ansible.builtin.blockinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
     marker: "# {mark} ANSIBLE MANAGED: setup_neovim"

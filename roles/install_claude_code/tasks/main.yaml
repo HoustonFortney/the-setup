@@ -26,6 +26,7 @@
     label: "{{ item.name }}"
 
 - name: Configure claude aliases in bash
+  become: false
   ansible.builtin.lineinfile:
     path: "{{ ansible_env.HOME }}/.bashrc"
     line: "{{ item }}"
