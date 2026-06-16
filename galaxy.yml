@@ -1,0 +1,33 @@
+---
+namespace: houstonfortney
+name: the_setup
+version: 1.0.0
+readme: README.md
+authors:
+  - Houston Fortney
+description: Roles for configuring a development environment on Ubuntu/Debian.
+license:
+  - MIT
+tags:
+  - tools
+  - linux
+  - development
+  - ubuntu
+  - debian
+repository: https://github.com/HoustonFortney/the-setup
+build_ignore:
+  - playbook.yaml
+  - hosts.yaml
+  - ansible.cfg
+  - pyproject.toml
+  - uv.lock
+  - ruff.toml
+  - molecule
+  - .config
+  - .venv
+  - .ansible
+  - .ruff_cache
+  - .github
+  - .claude
+  - .ansible-lint
+  - "*/tests"
