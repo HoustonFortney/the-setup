@@ -20,3 +20,4 @@ install_utils_packages:
   - htop
   - clang-format
   - shfmt
+  - xclip
