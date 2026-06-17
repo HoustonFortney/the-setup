@@ -15,6 +15,7 @@
 - Prefer `uv` for Python unless unavailable or the project uses something else
 - Don't install system wide packages without asking
 - Never commit or push unless I explicitly ask
+- For long-running commands, run them in the background and tee output to a file under `/tmp` so I can tail it
 
 ## Coding style
 
