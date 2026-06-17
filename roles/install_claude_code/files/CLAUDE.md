@@ -13,7 +13,6 @@
 ## Tools
 
 - Prefer `uv` for Python unless unavailable or the project uses something else
-- Prefer `rg` over grep and `fd`/`fdfind` over find
 - Don't install system wide packages without asking
 - Never commit or push unless I explicitly ask
 
