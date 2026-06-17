@@ -145,6 +145,34 @@ map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
 
 map("n", "<leader>qq", ":bufdo bwipeout<CR>", { desc = "Close all buffers" })
 
+map("n", "<leader>gd", function()
+    local root = vim.fn.systemlist({ "git", "rev-parse", "--show-toplevel" })[1]
+    if vim.v.shell_error ~= 0 then
+        vim.notify("Not in a git repository", vim.log.levels.WARN)
+        return
+    end
+
+    local modified = {}
+    for _, line in ipairs(vim.fn.systemlist({ "git", "-C", root, "status", "--porcelain" })) do
+        local xy = line:sub(1, 2)
+        if xy ~= "??" and not xy:find("D") then
+            local path = line:sub(4):match("-> (.+)$") or line:sub(4)
+            modified[vim.fn.fnamemodify(root .. "/" .. path, ":p")] = true
+        end
+    end
+
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        local name = vim.api.nvim_buf_get_name(buf)
+        if vim.bo[buf].buflisted and not vim.bo[buf].modified and name ~= "" and not modified[name] then
+            vim.api.nvim_buf_delete(buf, {})
+        end
+    end
+
+    for path in pairs(modified) do
+        vim.cmd.edit(vim.fn.fnameescape(path))
+    end
+end, { desc = "Open git-modified files, close the rest" })
+
 -- Quick run
 local pedal_key = "<F2>"
 map("n", pedal_key, function()
