@@ -1,6 +1,7 @@
 {
     "model": "opus",
     "includeCoAuthoredBy": true,
+    "editorMode": "vim",
     "permissions": {
         "allow": [
             "Bash(git status:*)",
