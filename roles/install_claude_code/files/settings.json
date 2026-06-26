@@ -2,6 +2,7 @@
     "model": "opus",
     "includeCoAuthoredBy": true,
     "editorMode": "vim",
+    "tui": "fullscreen",
     "permissions": {
         "allow": [
             "Bash(git status:*)",
