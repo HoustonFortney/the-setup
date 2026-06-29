@@ -29,6 +29,7 @@
     - { name: s, value: "status -sb" }
     - { name: l, value: "log --oneline --graph --decorate" }
     - { name: c, value: "commit" }
+    - { name: d, value: "diff" }
     - { name: cc, value: 'commit --trailer "Co-authored-by: Claude <noreply@anthropic.com>"' }
     - { name: amend, value: "commit --amend --no-edit" }
     - { name: fixup, value: "commit --fixup" }
