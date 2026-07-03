@@ -18,3 +18,10 @@
     dest: "{{ ansible_env.HOME }}/.bash_aliases"
     mode: "0644"
     backup: true
+
+- name: Copy readline configuration file
+  ansible.builtin.copy:
+    src: ".inputrc"
+    dest: "{{ ansible_env.HOME }}/.inputrc"
+    mode: "0644"
+    backup: true
