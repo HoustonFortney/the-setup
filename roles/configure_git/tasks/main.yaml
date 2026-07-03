@@ -18,6 +18,9 @@
     - { name: push.default, value: "current" }
     - { name: pull.rebase, value: "true" }
     - { name: rebase.autoSquash, value: "true" }
+    - { name: rerere.enabled, value: "true" }
+    - { name: diff.colorMoved, value: "default" }
+    - { name: branch.sort, value: "-committerdate" }
 
 - name: Set git aliases
   community.general.git_config:
