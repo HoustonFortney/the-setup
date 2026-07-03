@@ -28,6 +28,14 @@ As this repository is specific to my personal configuration, you likely want to 
    uv run ansible-playbook playbook.yaml --ask-become-pass
    ```
 
+### Headless environments
+
+Skip the desktop-only pieces with the `desktop` tag:
+
+```bash
+uv run ansible-playbook playbook.yaml --ask-become-pass --skip-tags desktop
+```
+
 ## 🔧 What Gets Installed
 
 This playbook installs/configures:
