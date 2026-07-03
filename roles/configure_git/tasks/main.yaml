@@ -28,8 +28,8 @@
     name: "alias.{{ item.name }}"
     value: "{{ item.value }}"
   loop:
-    - { name: a, value: "add -u" }
-    - { name: s, value: "status -sb" }
+    - { name: a, value: "add --update" }
+    - { name: s, value: "status --short --branch" }
     - { name: l, value: "log --oneline --graph --decorate" }
     - { name: c, value: "commit" }
     - { name: d, value: "diff" }
