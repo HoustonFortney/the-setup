@@ -33,3 +33,29 @@
     - { name: amend, value: "commit --amend --no-edit" }
     - { name: fixup, value: "commit --fixup" }
     - { name: pushf, value: "push --force-with-lease" }
+
+- name: Install lazygit
+  become: true
+  vars:
+    lazygit_archive: "lazygit_{{ configure_git_lazygit_version }}_linux_{{ ansible_architecture }}.tar.gz"
+  ansible.builtin.unarchive:
+    src: "https://github.com/jesseduffield/lazygit/releases/download/v{{ configure_git_lazygit_version }}/{{ lazygit_archive }}"
+    dest: /usr/local/bin
+    remote_src: true
+    include:
+      - lazygit
+    creates: /usr/local/bin/lazygit
+    mode: "0755"
+
+- name: Create lazygit config directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/lazygit"
+    state: directory
+    mode: "0755"
+
+- name: Copy lazygit config
+  ansible.builtin.copy:
+    src: files/lazygit.yml
+    dest: "{{ ansible_env.HOME }}/.config/lazygit/config.yml"
+    mode: "0644"
+    backup: true
