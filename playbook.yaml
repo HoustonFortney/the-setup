@@ -4,7 +4,7 @@
   roles:
     - install_utils
     - install_fonts
-    - install_alacritty
+    - install_kitty
     - configure_bash
     - install_i3
     - configure_git

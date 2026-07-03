@@ -1,0 +1,30 @@
+---
+- name: Install kitty
+  become: true
+  ansible.builtin.apt:
+    name: kitty
+    state: present
+    update_cache: true
+
+- name: Create kitty config dirs
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "755"
+  loop:
+    - "{{ ansible_env.HOME }}/.config/kitty"
+    - "{{ ansible_env.HOME }}/.config/kitty/themes/dracula"
+
+- name: Copy kitty configuration
+  ansible.builtin.copy:
+    src: "kitty.conf"
+    dest: "{{ ansible_env.HOME }}/.config/kitty/kitty.conf"
+    mode: "644"
+    backup: true
+
+- name: Download and unpack Dracula theme for kitty
+  ansible.builtin.unarchive:
+    src: "https://github.com/dracula/kitty/archive/master.zip"
+    dest: "{{ ansible_env.HOME }}/.config/kitty/themes/dracula"
+    remote_src: true
+    creates: "{{ ansible_env.HOME }}/.config/kitty/themes/dracula/kitty-master/dracula.conf"
