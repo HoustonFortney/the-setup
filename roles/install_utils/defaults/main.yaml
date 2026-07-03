@@ -20,6 +20,7 @@ install_utils_packages:
   - fd-find
   - bat
   - git-delta
+  - zoxide
   - htop
   - clang-format
   - shfmt
