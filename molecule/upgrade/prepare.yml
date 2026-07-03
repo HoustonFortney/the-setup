@@ -1,0 +1,11 @@
+--- # noqa: internal-error
+# The base import target is chosen at runtime via UPGRADE_BASE_PLAYBOOK, so
+# ansible-lint's syntax-check can't resolve it
+
+- name: Install prerequisites
+  import_playbook: ../default/prepare.yml
+
+# Apply the base playbook to establish old state. CI sets UPGRADE_BASE_PLAYBOOK
+# to the base branch's playbook
+- name: Apply base playbook to establish old state
+  import_playbook: "{{ lookup('env', 'UPGRADE_BASE_PLAYBOOK') }}"

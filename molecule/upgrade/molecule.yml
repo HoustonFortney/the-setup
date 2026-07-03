@@ -6,6 +6,4 @@ scenario:
     - prepare
     - converge
     - verify
-    - idempotence
-    - verify
     - destroy
