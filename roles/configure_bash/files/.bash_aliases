@@ -17,6 +17,8 @@ alias qr='quick-run'
 alias tf='terraform'
 alias kc='kubectl'
 
+alias lg='lazygit'
+
 alias vim='nvim'
 alias vi='nvim'
 alias svi='sudo nvim'

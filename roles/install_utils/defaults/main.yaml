@@ -16,6 +16,7 @@ install_utils_packages:
   - ripgrep
   - fd-find
   - bat
+  - git-delta
   - htop
   - clang-format
   - shfmt
