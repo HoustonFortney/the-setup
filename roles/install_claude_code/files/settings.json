@@ -1,6 +1,8 @@
 {
     "model": "opus",
     "includeCoAuthoredBy": true,
+    "editorMode": "vim",
+    "tui": "fullscreen",
     "permissions": {
         "allow": [
             "Bash(git status:*)",
@@ -12,7 +14,9 @@
             "Bash(cat:*)",
             "Bash(file:*)",
             "Bash(stat:*)",
+            "Bash(grep:*)",
             "Bash(rg:*)",
+            "Bash(find:*)",
             "Bash(fdfind:*)",
             "Bash(tree:*)",
             "Bash(jq:*)",

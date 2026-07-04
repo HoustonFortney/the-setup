@@ -25,3 +25,9 @@ def test_fzf_is_configured(host):
     user = host.user()
     bashrc_local = host.file(f"{user.home}/.bashrc_local")
     assert "FZF_DEFAULT_COMMAND" in bashrc_local.content_string, "fzf configuration should be present in .bashrc_local"
+
+
+def test_inputrc_file_created(host):
+    user = host.user()
+    inputrc = host.file(f"{user.home}/.inputrc")
+    assert inputrc.exists

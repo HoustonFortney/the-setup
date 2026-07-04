@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Claude Code status line: model | context used/total (%) | session cost | duration.
+"""Claude Code status line: model | context used/total (%) | session usage (%) ↻ reset | session cost | duration.
 
 Reads the status JSON from stdin (see Claude Code statusLine docs) and prints a
 single colored line using the Dracula palette (24-bit truecolor, no icons).
@@ -7,6 +7,7 @@ single colored line using the Dracula palette (24-bit truecolor, no icons).
 
 import json
 import sys
+import time
 
 # --- Dracula palette (24-bit truecolor) ---
 RESET = "\033[0m"
@@ -23,13 +24,18 @@ SEP = f"{COMMENT} | {RESET}"
 THOUSAND = 1000
 MILLION = 1_000_000
 
-# --- Context-usage percentage thresholds for color coding ---
-CTX_WARNING_PCT = 50
-CTX_CRITICAL_PCT = 80
+# --- Usage percentage thresholds for color coding ---
+USAGE_WARNING_PCT = 50
+USAGE_CRITICAL_PCT = 80
 
 
 def color(text, c):
     return f"{c}{text}{RESET}"
+
+
+def usage_color(pct):
+    """Green/yellow/red for a 0-100 usage percentage."""
+    return RED if pct >= USAGE_CRITICAL_PCT else YELLOW if pct >= USAGE_WARNING_PCT else GREEN
 
 
 def fmt_k(n):
@@ -43,16 +49,37 @@ def fmt_k(n):
     return f"{int(k)}k" if k == int(k) else f"{k:.1f}k"
 
 
-def fmt_duration(ms):
-    """Milliseconds -> 'Hh Mm' / 'Mm Ss' / 'Ss', trimming leading zero units."""
-    total_s = ms // 1000
+def fmt_time(total_s, include_seconds=True):
+    """Seconds -> compact 'HhMm' / 'MmSs' / 'Ss', trimming leading zero units.
+
+    With include_seconds=False, drops the seconds unit ('MmSs' -> 'Mm') and
+    renders a sub-minute span as '<1m' instead of '0m'/'Ss'.
+    """
     h, rem = divmod(total_s, 3600)
     m, s = divmod(rem, 60)
     if h:
-        return f"{h}h {m}m"
+        return f"{h}h{m}m"
     if m:
-        return f"{m}m {s}s"
-    return f"{s}s"
+        return f"{m}m{s}s" if include_seconds else f"{m}m"
+    return f"{s}s" if include_seconds else "<1m"
+
+
+def session_segment(data):
+    """Colored '% ↻ reset' for the 5-hour rate-limit window, or None when absent.
+
+    Only present for Claude.ai subscribers after the first API response.
+    """
+    five_hour = (data.get("rate_limits") or {}).get("five_hour") or {}
+    session_pct = five_hour.get("used_percentage")
+    if session_pct is None:
+        return None
+    sp = int(session_pct)
+    text = f"{sp}%"
+    resets_at = five_hour.get("resets_at")
+    if resets_at is not None:
+        remaining = int(resets_at - time.time())
+        text += " ↻ " + ("now" if remaining <= 0 else fmt_time(remaining, include_seconds=False))
+    return color(text, usage_color(sp))
 
 
 def main():
@@ -77,15 +104,14 @@ def main():
         pct = used * 100 / limit
     pct = int(pct)
 
-    ctx_color = RED if pct >= CTX_CRITICAL_PCT else YELLOW if pct >= CTX_WARNING_PCT else GREEN
-
     segments = [
         color(model_segment, CYAN),
-        color(f"{fmt_k(used)}/{fmt_k(limit)} ({pct}%)", ctx_color),
+        color(f"{fmt_k(used)}/{fmt_k(limit)} ({pct}%)", usage_color(pct)),
+        session_segment(data),
         color(f"${cost_usd:.2f}", PINK),
-        color(fmt_duration(dur_ms), PURPLE),
+        color(fmt_time(dur_ms // 1000), PURPLE),
     ]
-    sys.stdout.write(SEP.join(segments))
+    sys.stdout.write(SEP.join(s for s in segments if s is not None))
 
 
 if __name__ == "__main__":

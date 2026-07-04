@@ -9,6 +9,7 @@
     - { name: core.pager, value: "delta" }
     - { name: interactive.diffFilter, value: "delta --color-only" }
     - { name: delta.navigate, value: "true" }
+    - { name: delta.keep-plus-minus-markers, value: "true" }
     - { name: delta.line-numbers, value: "false" }
     - { name: delta.file-decoration-style, value: "none" }
     - { name: delta.file-modified-label, value: "" }
@@ -18,6 +19,9 @@
     - { name: push.default, value: "current" }
     - { name: pull.rebase, value: "true" }
     - { name: rebase.autoSquash, value: "true" }
+    - { name: rerere.enabled, value: "true" }
+    - { name: diff.colorMoved, value: "default" }
+    - { name: branch.sort, value: "-committerdate" }
 
 - name: Set git aliases
   community.general.git_config:
@@ -25,10 +29,11 @@
     name: "alias.{{ item.name }}"
     value: "{{ item.value }}"
   loop:
-    - { name: a, value: "add -u" }
-    - { name: s, value: "status -sb" }
+    - { name: a, value: "add --update" }
+    - { name: s, value: "status --short --branch" }
     - { name: l, value: "log --oneline --graph --decorate" }
     - { name: c, value: "commit" }
+    - { name: d, value: "diff" }
     - { name: cc, value: 'commit --trailer "Co-authored-by: Claude <noreply@anthropic.com>"' }
     - { name: amend, value: "commit --amend --no-edit" }
     - { name: fixup, value: "commit --fixup" }
