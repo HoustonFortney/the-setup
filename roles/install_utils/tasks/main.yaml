@@ -5,6 +5,7 @@
     name: "{{ install_utils_packages }}"
     state: present
     update_cache: true
+    cache_valid_time: 3600
 
 - name: Create bat config directory
   ansible.builtin.file:

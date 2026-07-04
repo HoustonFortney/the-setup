@@ -5,15 +5,10 @@
     state: directory
     mode: "0755"
 
-- name: Download nerd font
-  ansible.builtin.get_url:
-    url: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ install_fonts_nerd_font }}.tar.xz
-    dest: /tmp/{{ install_fonts_nerd_font }}.tar.xz
-    mode: "0644"
-
-- name: Unpack nerd font
+- name: Download and unpack nerd font
   ansible.builtin.unarchive:
-    src: /tmp/{{ install_fonts_nerd_font }}.tar.xz
+    src: https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ install_fonts_nerd_font }}.tar.xz
     dest: "{{ ansible_env.HOME }}/.local/share/fonts"
+    creates: "{{ ansible_env.HOME }}/.local/share/fonts/{{ install_fonts_nerd_font }}NerdFont-Regular.ttf"
     remote_src: true
   notify: Update font cache

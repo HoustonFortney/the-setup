@@ -16,6 +16,7 @@
     suites: any
     components: main
     signed_by: https://packages.buildkite.com/helm-linux/helm-debian/gpgkey
+  register: install_infrastructure_tools_helm_repo
 
 - name: Install helm
   become: true
@@ -23,6 +24,7 @@
     name: helm
     state: present
     update_cache: true
+    cache_valid_time: "{{ 0 if install_infrastructure_tools_helm_repo is changed else 3600 }}"
 
 - name: Enable helm bash completion
   become: false

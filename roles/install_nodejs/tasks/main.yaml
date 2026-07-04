@@ -15,6 +15,7 @@
     suites: nodistro
     components: main
     signed_by: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
+  register: install_nodejs_repo
   become: true
 
 - name: Install node
@@ -22,6 +23,7 @@
     name: nodejs
     state: present
     update_cache: true
+    cache_valid_time: "{{ 0 if install_nodejs_repo is changed else 3600 }}"
   become: true
 
 - name: Install global npm packages

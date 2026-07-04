@@ -15,6 +15,7 @@
     uris: https://pkgs.k8s.io/core:/stable:/v{{ install_infrastructure_tools_kubectl_version }}/deb/
     suites: "/"
     signed_by: https://pkgs.k8s.io/core:/stable:/v{{ install_infrastructure_tools_kubectl_version }}/deb/Release.key
+  register: install_infrastructure_tools_kubernetes_repo
 
 - name: Install kubectl
   become: true
@@ -22,6 +23,7 @@
     name: kubectl
     state: present
     update_cache: true
+    cache_valid_time: "{{ 0 if install_infrastructure_tools_kubernetes_repo is changed else 3600 }}"
 
 - name: Enable kubectl bash completion
   become: false
