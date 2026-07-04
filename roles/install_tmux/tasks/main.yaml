@@ -21,6 +21,7 @@
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
     version: v3.1.0
+    depth: 1
 
 - name: Install tmux plugins
   ansible.builtin.command: ~/.tmux/plugins/tpm/bin/install_plugins
