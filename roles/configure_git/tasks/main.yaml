@@ -9,6 +9,7 @@
     - { name: core.pager, value: "delta" }
     - { name: interactive.diffFilter, value: "delta --color-only" }
     - { name: delta.navigate, value: "true" }
+    - { name: delta.keep-plus-minus-markers, value: "true" }
     - { name: delta.line-numbers, value: "false" }
     - { name: delta.file-decoration-style, value: "none" }
     - { name: delta.file-modified-label, value: "" }
