@@ -17,6 +17,7 @@
     components: stable
     architectures: amd64
     signed_by: https://download.docker.com/linux/ubuntu/gpg
+  register: install_docker_repo
 
 - name: Install docker
   become: true
@@ -27,6 +28,7 @@
       - containerd.io
     state: present
     update_cache: true
+    cache_valid_time: "{{ 0 if install_docker_repo is changed else 3600 }}"
 
 - name: Add user to docker group
   become: true

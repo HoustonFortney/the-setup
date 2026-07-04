@@ -17,6 +17,7 @@
     components: main
     architectures: amd64
     signed_by: https://apt.releases.hashicorp.com/gpg
+  register: install_infrastructure_tools_hashicorp_repo
 
 - name: Install terraform
   become: true
@@ -24,6 +25,7 @@
     name: terraform
     state: present
     update_cache: true
+    cache_valid_time: "{{ 0 if install_infrastructure_tools_hashicorp_repo is changed else 3600 }}"
 
 - name: Enable terraform bash completion
   become: false
