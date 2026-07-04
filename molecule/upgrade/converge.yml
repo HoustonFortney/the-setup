@@ -1,0 +1,3 @@
+---
+- name: Apply playbook
+  import_playbook: ../../playbook.yaml

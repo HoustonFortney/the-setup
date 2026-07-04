@@ -1,0 +1,24 @@
+---
+driver:
+  name: docker
+platforms:
+  - name: ubuntu-24
+    image: ubuntu:24.04
+  - name: ubuntu-26
+    image: ubuntu:26.04
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      stdout_callback: debug
+      callbacks_enabled:
+        - timer
+        - profile_tasks
+        - profile_roles
+    env:
+      ANSIBLE_FORCE_COLOR: "true"
+verifier:
+  name: testinfra
+  directory: ../../roles
+  options:
+    verbose: true
