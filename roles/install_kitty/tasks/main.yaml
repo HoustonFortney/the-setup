@@ -11,7 +11,7 @@
   ansible.builtin.file:
     path: "{{ item }}"
     state: directory
-    mode: "755"
+    mode: "0755"
   loop:
     - "{{ ansible_env.HOME }}/.config/kitty"
     - "{{ ansible_env.HOME }}/.config/kitty/themes/dracula"
@@ -20,7 +20,7 @@
   ansible.builtin.copy:
     src: "kitty.conf"
     dest: "{{ ansible_env.HOME }}/.config/kitty/kitty.conf"
-    mode: "644"
+    mode: "0644"
     backup: true
 
 - name: Download and unpack Dracula theme for kitty
