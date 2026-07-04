@@ -24,3 +24,17 @@
     name: terraform
     state: present
     update_cache: true
+
+- name: Enable terraform bash completion
+  become: false
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "complete -C '/usr/bin/terraform' terraform"
+    state: present
+
+- name: Add terraform alias to bash
+  become: false
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "alias tf='terraform'"
+    state: present

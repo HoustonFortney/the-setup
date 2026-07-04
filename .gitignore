@@ -8,3 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Ansible local cache/home
+.ansible/
+
+# Locally built/installed collection artifacts (package CI mirrors these)
+.collections/

@@ -42,6 +42,35 @@ This playbook installs/configures:
 - General utilities: `jq`, `tmux`, `traceroute`, `speedtest-cli`, etc.
 - Scripts for customized workflows
 
+## 📦 Using individual roles from another playbook
+
+This repository is also packaged as an Ansible collection (`houstonfortney.the_setup`),
+so external playbooks can consume individual roles.
+
+1. Add the collection to your consumer project's `requirements.yml`:
+   ```yaml
+   ---
+   collections:
+     - source: git+https://github.com/houstonfortney/the-setup.git
+       type: git
+       version: main
+   ```
+
+2. Install it:
+   ```bash
+   ansible-galaxy collection install -r requirements.yml
+   ```
+
+3. Reference the roles you want by their fully qualified name:
+   ```yaml
+   ---
+   - name: Configure system
+     hosts: all
+     roles:
+       - houstonfortney.the_setup.configure_git
+       - houstonfortney.the_setup.install_tmux
+   ```
+
 ## 🧪 Testing
 
 This project uses [Molecule](https://molecule.readthedocs.io/) with the Docker driver to test the Ansible roles in isolated Ubuntu containers (`ubuntu:24.04` and `ubuntu:26.04`).

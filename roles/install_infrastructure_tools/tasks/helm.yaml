@@ -23,3 +23,10 @@
     name: helm
     state: present
     update_cache: true
+
+- name: Enable helm bash completion
+  become: false
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "source <(helm completion bash)"
+    state: present

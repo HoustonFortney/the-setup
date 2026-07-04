@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 
 def load_role_settings():
     with open("../../roles/install_claude_code/files/settings.json", "r") as f:
@@ -37,3 +39,13 @@ def test_global_instructions_deployed(host):
     user = host.user()
     instructions = host.file(f"{user.home}/.claude/CLAUDE.md")
     assert instructions.exists, "Global CLAUDE.md should be deployed"
+
+
+@pytest.mark.parametrize(
+    ("alias_name", "target"),
+    [("c", "claude"), ("cc", "claude --continue"), ("cr", "claude --resume")],
+)
+def test_claude_aliases_are_loaded(host, alias_name, target):
+    result = host.run(f"bash -i -c 'alias {alias_name}'")
+    assert result.rc == 0, f"Alias {alias_name} should be defined"
+    assert target in result.stdout

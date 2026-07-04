@@ -515,6 +515,16 @@ require("lazy").setup({
         },
     },
     {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        dependencies = { "williamboman/mason.nvim" },
+        opts = {
+            ensure_installed = {
+                "stylua",
+                "shellharden",
+            },
+        },
+    },
+    {
         "neovim/nvim-lspconfig",
         config = function()
             local on_attach = function(client, bufnr)

@@ -60,3 +60,9 @@ def test_quick_run_integration(host):
 def test_quick_run_operates_with_preexisting_pipe(host):
     host.run("mkfifo /tmp/quick-run.pipe")
     run_integration_test_sequence(host)
+
+
+def test_quick_run_alias_is_loaded(host):
+    result = host.run("bash -i -c 'alias qr'")
+    assert result.rc == 0, "qr alias should be defined"
+    assert "quick-run" in result.stdout

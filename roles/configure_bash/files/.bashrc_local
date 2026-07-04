@@ -15,13 +15,6 @@ PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }history -a"
 # Add git info to the prompt
 PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[33m\]$(GIT_PS1_SHOWUNTRACKEDFILES=1 GIT_PS1_SHOWDIRTYSTATE=1 __git_ps1)\[\033[00m\]\$ '
 
-# Completions
-eval "$(uv generate-shell-completion bash)"
-complete -C '/usr/bin/terraform' terraform
-source <(kubectl completion bash)
-source <(helm completion bash)
-complete -C '/usr/local/bin/aws_completer' aws
-
 # fzf key bindings (Ctrl-R history, Ctrl-T files, Alt-C cd) and completion
 if fzf --bash > /dev/null 2>&1; then
     # fzf >= 0.48
@@ -40,41 +33,3 @@ export FZF_DEFAULT_OPTS="
 export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fdfind --type d --hidden --follow --exclude .git'
-
-# Tmux + nvim open
-tvi() {
-    local root name
-
-    if root=$(git rev-parse --show-toplevel 2> /dev/null); then
-        name=$(basename "$root")
-        tmux attach -t "$name" || tmux new -s "$name" -c "$root" nvim
-    else
-        tmux attach || tmux new nvim
-    fi
-}
-
-# Command line clipboard utilities
-yank() {
-  if [[ -t 0 ]]; then
-    # Input is not a pipe, copy from specified file
-    cat "$@" | xclip -selection clipboard
-  else
-    # Input is from a pipe, copy the piped content and pass it through
-    tee >(xclip -selection clipboard)
-  fi
-}
-yank-wd() {
-  # Copy the current working directory
-  pwd | yank
-}
-yank-cmd() {
-  # Copy the last command
-  fc -ln -1 | sed 's/^[[:space:]]*//' | yank
-}
-put() {
-  # Paste from clipboard
-  xclip -selection clipboard -o
-}
-alias ywd='yank-wd'
-alias ycmd='yank-cmd'
-

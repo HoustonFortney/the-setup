@@ -1,3 +1,10 @@
 ---
 - name: Install uv
   ansible.builtin.import_tasks: uv.yaml
+
+- name: Add venv-activation alias to bash
+  become: false
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "alias av='source .venv/bin/activate'"
+    state: present

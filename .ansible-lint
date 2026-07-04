@@ -2,3 +2,5 @@
 exclude_paths:
   - .cache/
   - .github/
+skip_list:
+  - galaxy[no-changelog]

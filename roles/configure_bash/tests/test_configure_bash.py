@@ -19,3 +19,9 @@ def test_bash_aliases_file_created(host):
 def test_bash_aliases_are_loaded(host):
     command = host.run("bash -i -c 'alias ..'")
     assert command.rc == 0, "Alias '..' not found"
+
+
+def test_fzf_is_configured(host):
+    user = host.user()
+    bashrc_local = host.file(f"{user.home}/.bashrc_local")
+    assert "FZF_DEFAULT_COMMAND" in bashrc_local.content_string, "fzf configuration should be present in .bashrc_local"

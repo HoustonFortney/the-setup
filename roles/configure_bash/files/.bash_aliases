@@ -9,24 +9,3 @@ alias rm='rm -i'
 alias lh='ls -haltr'
 
 alias mkdirs='mkdir -pv'
-
-alias fd='fdfind'
-
-alias qr='quick-run'
-
-alias tf='terraform'
-alias kc='kubectl'
-
-alias lg='lazygit'
-
-alias vim='nvim'
-alias vi='nvim'
-alias svi='sudo nvim'
-
-alias cat='batcat'
-
-alias c='claude'
-alias cc='claude --continue'
-alias cr='claude --resume'
-
-alias av='source .venv/bin/activate'
