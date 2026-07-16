@@ -1,4 +1,10 @@
 gui:
+  nerdFontsVersion: "3"
+  showCommandLog: false
+  showBottomLine: false
+  showRandomTip: false
+  showPanelJumps: false
+  showListFooter: false
   theme:
     activeBorderColor:
       - "#ff79c6"
