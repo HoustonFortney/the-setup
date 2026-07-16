@@ -28,7 +28,10 @@
         "deny": [],
         "ask": [
             "Bash(git commit:*)",
-            "Bash(git push:*)"
+            "Bash(git push:*)",
+            "Bash(kubectl:*)",
+            "Bash(terraform:*)",
+            "Bash(helm:*)"
         ]
     },
     "statusLine": {
