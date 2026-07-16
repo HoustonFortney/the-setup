@@ -19,6 +19,6 @@ gui:
       - "#f8f8f2"
 git:
   autoFetch: false
-  paging:
-    colorArg: always
-    pager: delta --paging=never
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never
