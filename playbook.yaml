@@ -18,6 +18,7 @@
     - install_python_tools
     - install_nodejs
     - install_claude_code
+    - install_codex
     - install_rust_tools
     - install_infrastructure_tools
     - install_tmux

@@ -1,0 +1,16 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+approval_policy = "on-request"
+approvals_reviewer = "user"
+sandbox_mode = "workspace-write"
+
+[tui]
+vim_mode_default = true
+alternate_screen = "always"
+status_line = [
+    "model-with-reasoning",
+    "context-used",
+    "context-window-size",
+    "five-hour-limit",
+    "estimated-thread-cost",
+]

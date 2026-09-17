@@ -1,0 +1,42 @@
+---
+- name: Install Codex installer dependencies
+  become: true
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install Codex
+  ansible.builtin.shell:
+    cmd: "set -o pipefail && curl -fsSL https://chatgpt.com/codex/install.sh | sh"
+    executable: /usr/bin/bash
+    creates: "{{ ansible_env.HOME }}/.local/bin/codex"
+  environment:
+    CODEX_NON_INTERACTIVE: "true"
+    CODEX_HOME: "{{ ansible_env.HOME }}/.codex"
+    CODEX_INSTALL_DIR: "{{ ansible_env.HOME }}/.local/bin"
+    # Avoid installer shell profile changes by putting its bin directory on PATH.
+    PATH: "{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.PATH }}"
+
+- name: Create Codex configuration directories
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.codex/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - ""
+    - rules
+
+- name: Copy Codex configuration files
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.codex/{{ item }}"
+    mode: "0644"
+    backup: true
+  loop:
+    - config.toml
+    - AGENTS.md
+    - rules/the-setup.rules

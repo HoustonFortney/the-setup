@@ -46,6 +46,7 @@ This playbook installs/configures:
 - Bash shell customization
 - Development tools: [Docker](https://www.docker.com/), [Node.js](https://nodejs.org), [uv](https://github.com/astral-sh/uv), [Rust](https://www.rust-lang.org/)
 - [Claude Code](https://www.claude.com/product/claude-code)
+- [Codex](https://developers.openai.com/codex/cli/)
 - Infrastructure tools: [Terraform](https://www.terraform.io/), [Kubernetes kubectl](https://kubernetes.io/docs/tasks/tools/), [Helm](https://helm.sh/), [aws-cli](https://aws.amazon.com/cli/)
 - General utilities: `jq`, `tmux`, `traceroute`, `speedtest-cli`, etc.
 - Scripts for customized workflows
