@@ -3,6 +3,7 @@
 approval_policy = "on-request"
 approvals_reviewer = "auto_review"
 sandbox_mode = "workspace-write"
+project_doc_fallback_filenames = ["CLAUDE.md"]
 
 [tui]
 vim_mode_default = true
