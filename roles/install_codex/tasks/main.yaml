@@ -37,15 +37,31 @@
     - ""
     - rules
 
-- name: Copy Codex configuration files
+- name: Create Codex system configuration directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/codex
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy Codex system defaults
+  become: true
   ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: "{{ ansible_env.HOME }}/.codex/{{ item }}"
+    src: config.toml
+    dest: /etc/codex/config.toml
+    owner: root
+    group: root
     mode: "0644"
     backup: true
-  loop:
-    - config.toml
-    - rules/the-setup.rules
+
+- name: Copy Codex command rules
+  ansible.builtin.copy:
+    src: rules/the-setup.rules
+    dest: "{{ ansible_env.HOME }}/.codex/rules/the-setup.rules"
+    mode: "0644"
+    backup: true
 
 - name: Copy shared Codex instructions
   ansible.builtin.copy:

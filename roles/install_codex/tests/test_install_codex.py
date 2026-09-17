@@ -36,10 +36,27 @@ def test_codex_is_installed(host):
     assert "codex-cli" in result.stdout
 
 
-@pytest.mark.parametrize("name", ["config.toml", "AGENTS.md", "rules/the-setup.rules"])
-def test_codex_configuration_deployed(host, name):
-    source = Path(__file__).resolve().parents[1] / "files" / name
-    deployed = host.file(f"{host.user().home}/.codex/{name}")
+def test_codex_system_config_deployed(host):
+    source = Path(__file__).resolve().parents[1] / "files" / "config.toml"
+    deployed = host.file("/etc/codex/config.toml")
+    assert deployed.exists
+    assert deployed.mode == CONFIG_FILE_MODE
+    assert deployed.user == "root"
+    assert deployed.group == "root"
+    assert deployed.content_string == source.read_text()
+
+
+def test_codex_instructions_deployed(host):
+    source = Path(__file__).resolve().parents[3] / "files" / "agent-instructions.md"
+    deployed = host.file(f"{host.user().home}/.codex/AGENTS.md")
+    assert deployed.exists
+    assert deployed.mode == CONFIG_FILE_MODE
+    assert deployed.content_string == source.read_text()
+
+
+def test_codex_rules_deployed(host):
+    source = Path(__file__).resolve().parents[1] / "files" / "rules" / "the-setup.rules"
+    deployed = host.file(f"{host.user().home}/.codex/rules/the-setup.rules")
     assert deployed.exists
     assert deployed.mode == CONFIG_FILE_MODE
     assert deployed.content_string == source.read_text()
