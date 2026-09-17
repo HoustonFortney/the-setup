@@ -45,8 +45,14 @@
     backup: true
   loop:
     - config.toml
-    - AGENTS.md
     - rules/the-setup.rules
+
+- name: Copy shared Codex instructions
+  ansible.builtin.copy:
+    src: "{{ role_path }}/../../files/agent-instructions.md"
+    dest: "{{ ansible_env.HOME }}/.codex/AGENTS.md"
+    mode: "0644"
+    backup: true
 
 - name: Configure codex aliases in bash
   become: false

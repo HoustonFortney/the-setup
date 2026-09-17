@@ -21,4 +21,3 @@
 
 - Comment only when it adds something not in the code, or explains a non-obvious choice
 - Favor simplicity and minimalism
-
