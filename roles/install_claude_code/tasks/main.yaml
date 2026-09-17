@@ -26,7 +26,7 @@
 
 - name: Copy shared Claude Code instructions
   ansible.builtin.copy:
-    src: "{{ role_path }}/../../files/agent-instructions.md"
+    src: "{{ role_path | dirname | dirname }}/files/agent-instructions.md"
     dest: "{{ ansible_env.HOME }}/.claude/CLAUDE.md"
     mode: "0644"
     backup: true

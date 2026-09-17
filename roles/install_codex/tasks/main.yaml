@@ -49,7 +49,7 @@
 
 - name: Copy shared Codex instructions
   ansible.builtin.copy:
-    src: "{{ role_path }}/../../files/agent-instructions.md"
+    src: "{{ role_path | dirname | dirname }}/files/agent-instructions.md"
     dest: "{{ ansible_env.HOME }}/.codex/AGENTS.md"
     mode: "0644"
     backup: true
