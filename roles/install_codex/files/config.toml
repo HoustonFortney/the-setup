@@ -4,6 +4,10 @@ approval_policy = "on-request"
 approvals_reviewer = "auto_review"
 sandbox_mode = "workspace-write"
 project_doc_fallback_filenames = ["CLAUDE.md"]
+commit_attribution = "Codex <noreply@openai.com>"
+
+[features]
+codex_git_commit = true
 
 [tui]
 theme = "dracula"

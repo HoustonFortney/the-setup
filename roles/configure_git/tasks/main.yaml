@@ -35,6 +35,7 @@
     - { name: c, value: "commit" }
     - { name: d, value: "diff" }
     - { name: cc, value: 'commit --trailer "Co-authored-by: Claude <noreply@anthropic.com>"' }
+    - { name: cx, value: 'commit --trailer "Co-authored-by: Codex <noreply@openai.com>"' }
     - { name: amend, value: "commit --amend --no-edit" }
     - { name: fixup, value: "commit --fixup" }
     - { name: pushf, value: "push --force-with-lease" }
