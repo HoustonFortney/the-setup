@@ -1,0 +1,26 @@
+---
+- name: Install AppArmor sandbox prerequisites
+  become: true
+  ansible.builtin.apt:
+    name:
+      - apparmor
+      - apparmor-profiles
+      - apparmor-utils
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+  notify: Load bubblewrap AppArmor profile
+
+- name: Deploy Ubuntu 24.04 bubblewrap AppArmor profile
+  become: true
+  ansible.builtin.copy:
+    src: /usr/share/apparmor/extra-profiles/bwrap-userns-restrict
+    dest: /etc/apparmor.d/bwrap-userns-restrict
+    remote_src: true
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+    validate: /usr/sbin/apparmor_parser --skip-kernel-load --skip-cache --base /etc/apparmor.d %s
+  when: ansible_distribution_version is version('24.04', '==')
+  notify: Load bubblewrap AppArmor profile

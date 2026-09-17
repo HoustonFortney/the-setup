@@ -3,11 +3,18 @@
   become: true
   ansible.builtin.apt:
     name:
+      - bubblewrap
       - ca-certificates
       - curl
     state: present
     update_cache: true
     cache_valid_time: 3600
+
+- name: Configure Ubuntu sandbox AppArmor profile
+  ansible.builtin.import_tasks: apparmor.yaml
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version is version('24.04', '==')
 
 - name: Install Codex
   ansible.builtin.shell:

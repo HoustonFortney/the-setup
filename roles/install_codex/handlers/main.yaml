@@ -1,0 +1,13 @@
+---
+- name: Load bubblewrap AppArmor profile
+  become: true
+  ansible.builtin.command:
+    argv:
+      - /usr/sbin/apparmor_parser
+      - --replace
+      - /etc/apparmor.d/bwrap-userns-restrict
+  changed_when: true
+  # Docker tests share the host kernel; never change its AppArmor policy.
+  when:
+    - ansible_facts.apparmor.status | default('disabled') == 'enabled'
+    - ansible_virtualization_type not in ['docker', 'podman', 'container', 'lxc', 'lxc-libvirt', 'systemd-nspawn']

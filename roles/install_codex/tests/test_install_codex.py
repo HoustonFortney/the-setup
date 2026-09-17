@@ -6,6 +6,30 @@ import pytest
 CONFIG_FILE_MODE = 0o644
 
 
+def test_bubblewrap_is_installed(host):
+    assert host.package("bubblewrap").is_installed
+    assert host.run("bwrap --version").rc == 0
+
+
+def test_ubuntu_sandbox_apparmor_profile(host):
+    if host.system_info.distribution != "ubuntu" or host.system_info.release != "24.04":
+        pytest.skip("The AppArmor setup is specific to Ubuntu 24.04")
+    for package in ("apparmor", "apparmor-profiles", "apparmor-utils"):
+        assert host.package(package).is_installed
+    profile = host.file("/etc/apparmor.d/bwrap-userns-restrict")
+    assert profile.exists
+    assert profile.user == "root"
+    assert profile.group == "root"
+    assert profile.mode == CONFIG_FILE_MODE
+    source = host.file("/usr/share/apparmor/extra-profiles/bwrap-userns-restrict")
+    assert profile.content_string == source.content_string
+    # Compile the distribution policy without loading it into the host kernel.
+    result = host.run(
+        "apparmor_parser --skip-kernel-load --skip-cache --base /etc/apparmor.d /etc/apparmor.d/bwrap-userns-restrict",
+    )
+    assert result.rc == 0, result.stderr
+
+
 def test_codex_is_installed(host):
     result = host.run("~/.local/bin/codex --version")
     assert result.rc == 0
