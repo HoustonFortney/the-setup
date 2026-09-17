@@ -40,3 +40,14 @@
     - config.toml
     - AGENTS.md
     - rules/the-setup.rules
+
+- name: Configure codex aliases in bash
+  become: false
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - "alias x='codex'"
+    - "alias xc='codex resume --last'"
+    - "alias xr='codex resume'"
