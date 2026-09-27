@@ -20,10 +20,16 @@
   loop:
     - { name: statusline.py, mode: "0755" }
     - { name: notify-tmux.sh, mode: "0755" }
-    - { name: CLAUDE.md, mode: "0644" }
     - { name: settings.json, mode: "0644" }
   loop_control:
     label: "{{ item.name }}"
+
+- name: Copy shared Claude Code instructions
+  ansible.builtin.copy:
+    src: "{{ role_path | dirname | dirname }}/files/agent-instructions.md"
+    dest: "{{ ansible_env.HOME }}/.claude/CLAUDE.md"
+    mode: "0644"
+    backup: true
 
 - name: Configure claude aliases in bash
   become: false

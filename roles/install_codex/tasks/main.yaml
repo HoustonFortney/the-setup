@@ -1,0 +1,82 @@
+---
+- name: Install Codex installer dependencies
+  become: true
+  ansible.builtin.apt:
+    name:
+      - bubblewrap
+      - ca-certificates
+      - curl
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Configure Ubuntu sandbox AppArmor profile
+  ansible.builtin.import_tasks: apparmor.yaml
+  when:
+    - ansible_distribution == "Ubuntu"
+    - ansible_distribution_version is version('24.04', '==')
+
+- name: Install Codex
+  ansible.builtin.shell:
+    cmd: "set -o pipefail && curl -fsSL https://chatgpt.com/codex/install.sh | sh"
+    executable: /usr/bin/bash
+    creates: "{{ ansible_env.HOME }}/.local/bin/codex"
+  environment:
+    CODEX_NON_INTERACTIVE: "true"
+    CODEX_HOME: "{{ ansible_env.HOME }}/.codex"
+    CODEX_INSTALL_DIR: "{{ ansible_env.HOME }}/.local/bin"
+    # Avoid installer shell profile changes by putting its bin directory on PATH.
+    PATH: "{{ ansible_env.HOME }}/.local/bin:{{ ansible_env.PATH }}"
+
+- name: Create Codex configuration directories
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.codex/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - ""
+    - rules
+
+- name: Create Codex system configuration directory
+  become: true
+  ansible.builtin.file:
+    path: /etc/codex
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy Codex system defaults
+  become: true
+  ansible.builtin.copy:
+    src: config.toml
+    dest: /etc/codex/config.toml
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+
+- name: Copy Codex command rules
+  ansible.builtin.copy:
+    src: rules/the-setup.rules
+    dest: "{{ ansible_env.HOME }}/.codex/rules/the-setup.rules"
+    mode: "0644"
+    backup: true
+
+- name: Copy shared Codex instructions
+  ansible.builtin.copy:
+    src: "{{ role_path | dirname | dirname }}/files/agent-instructions.md"
+    dest: "{{ ansible_env.HOME }}/.codex/AGENTS.md"
+    mode: "0644"
+    backup: true
+
+- name: Configure codex aliases in bash
+  become: false
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    line: "{{ item }}"
+    state: present
+  loop:
+    - "alias x='codex'"
+    - "alias xc='codex resume --last'"
+    - "alias xr='codex resume'"

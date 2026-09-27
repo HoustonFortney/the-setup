@@ -1,0 +1,24 @@
+prefix_rule(
+    pattern = ["git", ["status", "diff", "log", "show"]],
+    decision = "allow",
+    match = ["git status --short", "git diff --stat", "git log -1", "git show HEAD"],
+    not_match = ["git commit -m example", "git push"],
+)
+
+prefix_rule(
+    pattern = [[
+        "ls", "pwd", "cat", "file", "stat", "grep", "rg", "find", "fdfind",
+        "tree", "jq", "wc", "head", "tail", "ruff",
+    ]],
+    decision = "allow",
+    match = ["rg --files", "ruff check .", "ruff format ."],
+    not_match = ["git push", "rm example"],
+)
+
+prefix_rule(
+    pattern = ["git", ["commit", "push"]],
+    decision = "prompt",
+    justification = "Only commit or push when explicitly requested.",
+    match = ["git commit -m example", "git push origin main"],
+    not_match = ["git status", "git diff"],
+)

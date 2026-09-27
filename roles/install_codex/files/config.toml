@@ -1,0 +1,30 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+sandbox_mode = "workspace-write"
+project_doc_fallback_filenames = ["CLAUDE.md"]
+
+[features]
+codex_git_commit = true
+
+[tui]
+theme = "dracula"
+animations = false
+vim_mode_default = true
+alternate_screen = "always"
+status_line = [
+    "model-with-reasoning",
+    "context-used",
+    "context-window-size",
+    "five-hour-limit",
+    "estimated-thread-cost",
+]
+
+# Ctrl+T splits a pane in tmux; use Ctrl+O for the transcript instead.
+[tui.keymap.global]
+open_transcript = "ctrl-o"
+copy = "alt-o"
+
+[tui.keymap.pager]
+close_transcript = "ctrl-o"
