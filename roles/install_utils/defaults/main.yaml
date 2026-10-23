@@ -25,3 +25,4 @@ install_utils_packages:
   - clang-format
   - shfmt
   - xclip
+install_utils_s5cmd_version: 2.3.0

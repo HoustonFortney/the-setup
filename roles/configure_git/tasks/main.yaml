@@ -11,10 +11,11 @@
     - { name: delta.navigate, value: "true" }
     - { name: delta.keep-plus-minus-markers, value: "true" }
     - { name: delta.line-numbers, value: "false" }
-    - { name: delta.file-decoration-style, value: "none" }
+    - { name: delta.file-style, value: "#bd93f9 bold" }
+    - { name: delta.file-decoration-style, value: "#bd93f9 bold ol" }
     - { name: delta.file-modified-label, value: "" }
-    - { name: delta.hunk-header-style, value: "omit" }
-    - { name: delta.hunk-header-decoration-style, value: "none" }
+    - { name: delta.hunk-header-style, value: "syntax" }
+    - { name: delta.hunk-header-decoration-style, value: "#6272a4 ol" }
     - { name: delta.syntax-theme, value: "Dracula" }
     - { name: push.default, value: "current" }
     - { name: pull.rebase, value: "true" }
