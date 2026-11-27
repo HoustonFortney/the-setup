@@ -6,7 +6,7 @@ default_border pixel 0
 
 focus_follows_mouse no
 
-font pango:monospace 12
+font pango:JetBrainsMono Nerd Font 12
 
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xset s 600
@@ -176,7 +176,7 @@ bar {
         mode hide
         modifier $mod
 
-        font pango:monospace 8
+        font pango:JetBrainsMono Nerd Font 8
 
         # Darcula theme
         colors {
