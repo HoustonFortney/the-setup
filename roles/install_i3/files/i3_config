@@ -163,6 +163,10 @@ mode "resize" {
 # Screenshots
 bindsym Ctrl+Shift+Print exec --no-startup-id screenshot
 
+# Notifications
+bindsym $mod+n exec --no-startup-id dunstctl close-all
+bindsym $mod+Shift+n exec --no-startup-id dunstctl history-pop
+
 # Lock
 bindsym $mod+Home exec --no-startup-id lock
 
