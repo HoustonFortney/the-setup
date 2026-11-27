@@ -23,6 +23,8 @@
     - { name: rerere.enabled, value: "true" }
     - { name: diff.colorMoved, value: "default" }
     - { name: branch.sort, value: "-committerdate" }
+    - { name: init.defaultBranch, value: "main" }
+    - { name: fetch.prune, value: "true" }
 
 - name: Set git aliases
   community.general.git_config:
