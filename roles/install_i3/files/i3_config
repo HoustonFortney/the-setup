@@ -180,8 +180,6 @@ bar {
         mode hide
         modifier $mod
 
-        font pango:JetBrainsMono Nerd Font 8
-
         # Darcula theme
         colors {
                 background #282A36
