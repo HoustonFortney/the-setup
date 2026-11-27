@@ -34,3 +34,8 @@ def test_clipboard_functions_are_loaded(host, function_name):
     result = host.run(f"bash -i -c 'type -t {function_name}'")
     assert result.rc == 0, f"Clipboard function {function_name} should be defined"
     assert result.stdout.strip() == "function"
+
+
+def test_s5cmd_is_installed(host):
+    result = host.run("s5cmd version")
+    assert result.rc == 0, "s5cmd should be installed and executable"

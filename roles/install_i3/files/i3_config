@@ -6,7 +6,7 @@ default_border pixel 0
 
 focus_follows_mouse no
 
-font pango:monospace 12
+font pango:JetBrainsMono Nerd Font 12
 
 exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xset s 600
@@ -16,11 +16,10 @@ exec_always --no-startup-id setxkbmap -option caps:escape
 
 include ~/.config/i3/outputs.conf
 
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 floating_modifier $mod
 tiling_drag modifier titlebar
@@ -163,6 +162,10 @@ mode "resize" {
 # Screenshots
 bindsym Ctrl+Shift+Print exec --no-startup-id screenshot
 
+# Notifications
+bindsym $mod+n exec --no-startup-id dunstctl close-all
+bindsym $mod+Shift+n exec --no-startup-id dunstctl history-pop
+
 # Lock
 bindsym $mod+Home exec --no-startup-id lock
 
@@ -176,13 +179,11 @@ bar {
         mode hide
         modifier $mod
 
-        font pango:monospace 8
-
-        # Darcula theme
+        # Dracula theme
         colors {
                 background #282A36
                 statusline #F8F8F2
-                separator  #44475A
+                separator  #6272A4
 
                 focused_workspace  #44475A #44475A #F8F8F2
                 active_workspace   #282A36 #44475A #F8F8F2
@@ -192,7 +193,7 @@ bar {
         }
 }
 
-# Darcula theme
+# Dracula theme
 # class                 border  bground text    indicator child_border
 client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
 client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A

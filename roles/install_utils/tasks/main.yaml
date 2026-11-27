@@ -44,3 +44,17 @@
     path: "{{ ansible_env.HOME }}/.bashrc"
     line: "source ~/.bash_clipboard"
     state: present
+
+- name: Install s5cmd
+  become: true
+  vars:
+    s5cmd_arch: "{{ {'x86_64': '64bit', 'aarch64': 'arm64'}[ansible_architecture] }}"
+    s5cmd_archive: "s5cmd_{{ install_utils_s5cmd_version }}_Linux-{{ s5cmd_arch }}.tar.gz"
+  ansible.builtin.unarchive:
+    src: "https://github.com/peak/s5cmd/releases/download/v{{ install_utils_s5cmd_version }}/{{ s5cmd_archive }}"
+    dest: /usr/local/bin
+    remote_src: true
+    include:
+      - s5cmd
+    creates: /usr/local/bin/s5cmd
+    mode: "0755"

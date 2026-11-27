@@ -2,7 +2,8 @@ BASHRC_LOCAL_SOURCED=true
 
 # Use vim-style line editing in the shell
 set -o vi
-export EDITOR=vim
+export EDITOR=nvim
+export VISUAL=nvim
 
 # History
 HISTTIMEFORMAT="%F %T "

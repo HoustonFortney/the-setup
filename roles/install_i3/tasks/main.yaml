@@ -15,6 +15,7 @@
   loop:
     - "{{ ansible_env.HOME }}/.config/i3"
     - "{{ ansible_env.HOME }}/.config/i3blocks"
+    - "{{ ansible_env.HOME }}/.config/dunst"
 
 - name: Copy i3 config files
   ansible.builtin.copy:
@@ -31,6 +32,14 @@
     mode: "0644"
     backup: true
   notify: Restart i3
+
+- name: Copy dunst configuration
+  ansible.builtin.copy:
+    src: "dunstrc"
+    dest: "{{ ansible_env.HOME }}/.config/dunst/dunstrc"
+    mode: "0644"
+    backup: true
+  notify: Restart dunst
 
 - name: Create machine-specific display config template
   ansible.builtin.copy:
