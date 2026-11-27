@@ -18,10 +18,13 @@
     - { name: delta.hunk-header-decoration-style, value: "#6272a4 ol" }
     - { name: delta.syntax-theme, value: "Dracula" }
     - { name: push.default, value: "current" }
+    - { name: push.autoSetupRemote, value: "true" }
     - { name: pull.rebase, value: "true" }
     - { name: rebase.autoSquash, value: "true" }
+    - { name: rebase.updateRefs, value: "true" }
     - { name: rerere.enabled, value: "true" }
     - { name: diff.colorMoved, value: "default" }
+    - { name: diff.algorithm, value: "histogram" }
     - { name: branch.sort, value: "-committerdate" }
     - { name: init.defaultBranch, value: "main" }
     - { name: fetch.prune, value: "true" }
