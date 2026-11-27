@@ -51,3 +51,10 @@ def test_rofi_config_is_populated(host):
     rofi_config = host.file(rofi_config_path)
     assert rofi_config.is_file, f"Rofi config file {rofi_config_path} should exist"
     assert rofi_config.size > 0, f"Rofi config file {rofi_config_path} should not be empty"
+
+
+def test_dunst_config_file_exists(host):
+    user = host.user()
+    config_file_path = f"{user.home}/.config/dunst/dunstrc"
+    config_file = host.file(config_file_path)
+    assert config_file.is_file, f"Dunst config file {config_file_path} should exist"

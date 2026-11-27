@@ -7,3 +7,4 @@ install_i3_packages:
   - rofi
   - maim
   - xss-lock
+  - dunst

@@ -3,3 +3,10 @@
   ansible.builtin.command: "i3-msg restart"
   when: ansible_facts['env']['DISPLAY'] is defined
   changed_when: true
+
+# dunst is D-Bus activated, so it respawns with the new config on the next notification
+- name: Restart dunst
+  ansible.builtin.command: "pkill -x dunst"
+  register: install_i3_pkill_dunst
+  failed_when: install_i3_pkill_dunst.rc > 1
+  changed_when: install_i3_pkill_dunst.rc == 0
