@@ -2,7 +2,7 @@ separator_block_width=24
 
 [cpu]
 label=
-command=/usr/share/i3blocks/cpu_usage
+command=out=$(/usr/share/i3blocks/cpu_usage); rc=$?; echo "$out" | awk 'NR<=2{printf "%.0f%%\n", $1; next} 1'; exit $rc
 interval=5
 
 [memory]
